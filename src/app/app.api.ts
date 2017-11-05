@@ -1,0 +1,1 @@
+export const http_url = "http://orcamento-api.dev/api"
