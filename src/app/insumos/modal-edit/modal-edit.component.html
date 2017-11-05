@@ -1,0 +1,58 @@
+<div class="dialog-background" *ngIf="mostrarDialog">
+    <div class="dialog">
+      <!-- Modal -->
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right">
+          <li class=""><a href="#tab_1-1" data-toggle="tab">Cadastrar</a></li>
+          <li class="pull-left header"><i class="fa fa-th"></i> Adicionar Insumo</li>
+        </ul>
+        <!-- Item Existente -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1-1">
+            <form #novoInsumo="ngForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" class="form-control" name="descricao" placeholder="Descrição do material / serviço" [(ngModel)]="novoInsumo.descricao">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="unidade">Unidade</label>
+                    <input type="text" class="form-control text-center" name="unidade" placeholder="Solicitante" [(ngModel)]="novoInsumo.unidade">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="tipo_id">Tipo</label>
+                    <select class="form-control" name="tipo_id" placeholder="Solicitante" [(ngModel)]="novoInsumo.tipo_id">
+                      <option value="{{ tipo.id }}" *ngFor="let tipo of tipos">{{ tipo.descricao }}</option>
+                    </select> 
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="cst_total">Preço Unitário</label>
+                    <input type="text" class="form-control text-center" name="cst_total" placeholder="Solicitante" [(ngModel)]="novoInsumo.cst_total">
+                  </div>
+                </div>
+                
+              </div>
+            </form> 
+          </div><!-- / Item Existente -->
+          <!-- /.tab-pane -->
+
+        </div>
+        <!-- /.tab-content -->
+      </div>
+        <div class="row">
+          <div class="col-md-2">
+            <button class="btn btn-block btn-danger" (click)="CloseEvent()">Fechar</button>
+          </div>
+          <div class="col-md-2 col-md-offset-8">
+            <button class="btn btn-block btn-primary" (click)="NewItemEvent()">Adicionar</button>
+          </div>
+        </div>
+    </div> 
+  </div>

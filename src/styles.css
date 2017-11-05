@@ -1,1 +1,89 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+#conteudo {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(20px, auto); }
+  
+  app-header {
+    grid-column: 1 / 13;
+    grid-row: 1 / 6;
+    padding: 15px;
+    background: url("app/img/fundo_nav.jpg");
+    background-position: right top;
+    background-position-y: -200px;
+    background-repeat: no-repeat; }
+  
+  app-header img {
+    float: left; }
+  
+  app-header .titulo {
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    padding-top: 2.4%;
+    padding-right: 5%;
+    text-shadow: 1px 1px 3px #969696; }
+  
+  app-nav {
+    grid-row: 6 / 8;
+    grid-column: 1 / 13;
+    background: linear-gradient(#0086e0, #00497a, #00497a);
+    color: white;
+    padding-top: 10px;
+  }
+  
+  app-nav ul {
+    float: left; }
+  
+  app-nav ul li {
+    display: inline;
+    padding: 0 15px;
+    font-weight: bold; }
+  
+  section {
+    margin: 0 auto;
+    grid-column: 1 / 13;
+    min-height: 500px;
+    width: 100%;
+    background: #ecf0f5; }
+  
+  .form-tabela {
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+    border: none; }
+  
+  app-footer {
+    grid-column: 1 / 13;
+    min-height: 40px;
+    background: black; 
+    font-size: 1.3rem;
+    text-align: center;
+    color: white;
+    padding: 10px 0; }
+  
+  app-footer span {
+    font-weight: bold; }
+
+  /* Dialogs */
+  .dialog {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    padding: 20px;
+    width: 800px; /* Could be more or less, depending on screen size */
+  }
+
+  .dialog-background {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ 
+  }

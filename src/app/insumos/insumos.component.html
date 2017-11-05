@@ -1,18 +1,66 @@
+<div class="content-header">
+    <h1>Relação de Insumos</h1><small>Insumos Cadastrados</small>   
+</div>
+<br>
 
-<!-- <table>
-    <tr>
-        <th>id</th>
-        <th>descricao</th>
-        <th>unidade</th>
-        <th>tipo</th>
-        <th>valor</th>
-    </tr>
-    <tr *ngFor="let insumo of insumos">
-        <td>{{ insumo.id }}</td>
-        <td>{{ insumo.descricao }}</td>
-        <td>{{ insumo.unidade }}</td>
-        <td>{{ insumo.tipo }}</td>
-        <td>{{ insumo.valor }}</td>
-    </tr>
-</table> -->
-<p>{{ insumos | json }}</p>
+<div class="col-md-9">
+    <!-- Relação de Solicitações -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-list"></i> Lista de Insumos</h3>
+            <a class="btn btn-danger btn-xs pull-right" href="#" role="button"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-success btn-xs pull-right" href="#" role="button"><i class="fa fa-pencil"></i></a> 
+            <a class="btn btn-primary btn-xs pull-right" href="#" role="button" (click)="mostrarDialog()"><i class="fa fa-plus-circle"></i></a> 
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th class="text-center" style="min-width: 15px; width: 5%">Código</th>
+                    <th class="text-center">Descrição do Insumo / Serviço</th>
+                    <th class="text-center" style="min-width: 15px; width: 8%">Unidade</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Preço</th>
+                </tr>
+                <tr *ngFor="let insumo of insumos">
+                    <td class="text-center">{{ insumo.id }}</td>
+                    <td>{{ insumo.descricao }}</td>
+                    <td class="text-center">{{ insumo.unidade }}</td>
+                    <td class="text-center">{{ insumo.tipo }}</td>
+                    <td class="text-right">{{ insumo.cst_total | currency:'BRL' : true }}</td>
+                </tr>
+            </table>
+        </div><!-- /Relação de Solicitações -->
+    </div>
+</div>
+
+<div class="col-md-3">
+    <!-- Filtros -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <i class="fa fa-info-circle"></i>
+            <h3 class="box-title">Filtros</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="id">Código</label>
+                    <input type="text" class="form-control" id="id" placeholder="Descrição sumária">
+                </div>  
+                <div class="form-group">
+                    <label for="detalhes">Descrição</label>
+                    <input type="text" class="form-control" id="detalhes" placeholder="Descrição sumária">
+                </div>  
+                <div class="form-group">
+                    <label for="tipo">Tipo de Insumo</label>
+                    <input type="text" class="form-control" id="tipo" placeholder="Unidade de Negocio">
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </form>
+    </div><!-- /Filtros -->
+</div>
+
+<app-modal-edit [mostrarDialog]="dialog" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)"></app-modal-edit>

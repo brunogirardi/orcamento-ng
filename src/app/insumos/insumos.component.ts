@@ -5,19 +5,30 @@ import { Insumos } from '../models/insumos.model';
 
 @Component({
   selector: 'app-insumos',
-  templateUrl: './insumos.component.html',
-  styleUrls: ['./insumos.component.css']
+  templateUrl: './insumos.component.html'
 })
 export class InsumosComponent implements OnInit {
 
   insumos : Insumos[]
+  dialog : boolean = false
 
   constructor(private insumosService : InsumosService) { }
 
   ngOnInit() {
 
     this.insumosService.getLista().subscribe(insumos => this.insumos = insumos)
-    // this.insumosService.getInsumo(5).subscribe(insumos => this.insumos = insumos)
+
+  }
+
+  mostrarDialog() {
+    this.dialog = true
+  }
+
+  cancelDialog() {
+    this.dialog = false
+  }
+
+  insertInsumo($event) {
 
   }
 
