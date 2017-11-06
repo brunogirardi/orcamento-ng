@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { InsumosService } from '../services/insumos.service';
-import { Insumos } from '../models/insumos.model';
+import { Insumos, InsumosPost } from '../models/insumos.model';
 
 @Component({
   selector: 'app-insumos',
@@ -10,11 +10,12 @@ import { Insumos } from '../models/insumos.model';
 export class InsumosComponent implements OnInit {
 
   insumos : Insumos[]
+  updateItemIndex: number = null
 
   // Variaveis de apoio ao modal de edição
   dialog : boolean = false
   modeCreate : boolean = true
-  updateInsumo : Insumos = null
+  updateInsumo : InsumosPost = null
 
   constructor(private insumosService : InsumosService) { }
 
@@ -25,21 +26,44 @@ export class InsumosComponent implements OnInit {
   createInsumo() {
     this.dialog = true
     this.modeCreate = true
-    this.updateInsumo = null
+    this.updateInsumo = { descricao : "", unidade: "", cst_total: 0, tipos_id:1 }
   }
 
   cancelDialog() {
     this.dialog = false
+    this.updateItemIndex = null
   }
 
   insertInsumo($event) {
+    this.dialog = false
     this.insumos.push($event)
   }
 
   editarInsumo(index : number) {
-    this.dialog = true
+    this.updateItemIndex = index
+    this.updateInsumo = {
+      descricao: this.insumos[index].descricao,
+      unidade: this.insumos[index].unidade,
+      tipos_id: this.insumos[index].tipos_id,
+      cst_total: this.insumos[index].cst_total,
+    }
     this.modeCreate = false
-    this.updateInsumo = this.insumos[index]
+    this.dialog = true
+  }
+
+  deletarInsumo(index) {
+    this.insumosService.deleteInsumo(this.insumos[index].id).subscribe()
+    this.insumos.splice(index, 1)
+  }
+
+  updatedInsumo(evento) {
+    this.insumos[this.updateItemIndex].descricao = evento.descricao
+    this.insumos[this.updateItemIndex].unidade = evento.unidade
+    this.insumos[this.updateItemIndex].tipos_id = evento.tipos_id
+    this.insumos[this.updateItemIndex].tipo = evento.tipo
+    this.insumos[this.updateItemIndex].cst_total = evento.cst_total
+    this.dialog = false
+    this.updateItemIndex = null
   }
 
 }

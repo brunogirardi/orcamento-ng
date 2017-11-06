@@ -13,12 +13,13 @@ export class ModalEditComponent implements OnInit {
 
   @Input() mostrarDialog : boolean = false
   @Input() modeCreate : boolean = true
+  @Input() novoInsumo : InsumosPost
 
   @Output() onNewItem = new EventEmitter()
+  @Output() onUpdatedItem = new EventEmitter()
   @Output() onCancel = new EventEmitter()
 
   tipos : Tipos[]
-  novoInsumo : Insumos
 
   constructor(private tiposService : TiposService, private insumoService : InsumosService) {
     this.tipos = this.tiposService.getLista()
@@ -31,13 +32,12 @@ export class ModalEditComponent implements OnInit {
     this.onCancel.emit(true)
   }
 
-  NewItemEvent(insumo : InsumosPost) {
-    this.insumoService.inserirInsumo(insumo).subscribe(insumos => this.onNewItem.emit(insumos))
-    this.onCancel.emit(true)
-  }
-
-  editarInsumo(id : number) {
-    
+  SalvarInsumo() {
+    if (this.modeCreate == true) {
+      this.insumoService.inserirInsumo(this.novoInsumo).subscribe(insumos => this.onNewItem.emit(insumos))
+    } else {
+      this.insumoService.updateInsumo(45, this.novoInsumo).subscribe(insumos => this.onUpdatedItem.emit(insumos))
+    }
   }
 
 }

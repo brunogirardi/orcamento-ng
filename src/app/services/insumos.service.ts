@@ -30,8 +30,13 @@ export class InsumosService {
   }
   
   updateInsumo(id : number, insumo : InsumosPost) : Observable<Insumos> {
-    return this.http.post(`${http_url}/insumos/${id}`, insumo)
+    return this.http.patch(`${http_url}/insumos/${id}`, insumo)
       .map(response => <Insumos>response.json().data)
+  }
+
+  deleteInsumo(id : number) : Observable<string> {
+    return this.http.delete(`${http_url}/insumos/${id}`)
+      .map(response => <string>response.json().data)
   }
 
 }

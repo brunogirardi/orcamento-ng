@@ -9,7 +9,7 @@
     grid-column: 1 / 13;
     grid-row: 1 / 6;
     padding: 15px;
-    background: url("app/img/fundo_nav.jpg");
+    background: url("assets/img/fundo_nav.jpg");
     background-position: right top;
     background-position-y: -200px;
     background-repeat: no-repeat; }

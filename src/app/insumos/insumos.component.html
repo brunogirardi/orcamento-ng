@@ -25,7 +25,7 @@
                     <td>
                         {{ insumo.descricao }}
                         <a class="btn btn-success btn-xs pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger btn-xs pull-right" href="#" role="button"><i class="fa fa-trash"></i></a> 
+                        <a class="btn btn-danger btn-xs pull-right" (click)="deletarInsumo(i)" href="#" role="button"><i class="fa fa-trash"></i></a> 
                     </td>
                     <td class="text-center">{{ insumo.unidade }}</td>
                     <td class="text-center">{{ insumo.tipo }}</td>
@@ -65,4 +65,4 @@
     </div><!-- /Filtros -->
 </div>
 
-<app-modal-edit [mostrarDialog]="dialog" [modeCreate]="dialogMode" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)"></app-modal-edit>
+<app-modal-edit [mostrarDialog]="dialog" [novoInsumo]="updateInsumo" [modeCreate]="modeCreate" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)" (onUpdatedItem)="updatedInsumo($event)"></app-modal-edit>
