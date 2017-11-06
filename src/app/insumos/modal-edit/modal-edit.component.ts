@@ -36,7 +36,7 @@ export class ModalEditComponent implements OnInit {
     if (this.modeCreate == true) {
       this.insumoService.inserirInsumo(this.novoInsumo).subscribe(insumos => this.onNewItem.emit(insumos))
     } else {
-      this.insumoService.updateInsumo(45, this.novoInsumo).subscribe(insumos => this.onUpdatedItem.emit(insumos))
+      this.insumoService.updateInsumo(this.novoInsumo.id, this.novoInsumo).subscribe(insumos => this.onUpdatedItem.emit(insumos))
     }
   }
 

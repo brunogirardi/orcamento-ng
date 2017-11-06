@@ -11,6 +11,7 @@ interface Insumos {
 
 interface InsumosPost {
     
+    id: number
     descricao: string
     unidade: string
     cst_total: number

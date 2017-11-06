@@ -26,7 +26,7 @@ export class InsumosComponent implements OnInit {
   createInsumo() {
     this.dialog = true
     this.modeCreate = true
-    this.updateInsumo = { descricao : "", unidade: "", cst_total: 0, tipos_id:1 }
+    this.updateInsumo = { descricao : "", unidade: "", cst_total: 0, tipos_id:1, id: 0 }
   }
 
   cancelDialog() {
@@ -42,11 +42,13 @@ export class InsumosComponent implements OnInit {
   editarInsumo(index : number) {
     this.updateItemIndex = index
     this.updateInsumo = {
+      id: this.insumos[index].id,
       descricao: this.insumos[index].descricao,
       unidade: this.insumos[index].unidade,
       tipos_id: this.insumos[index].tipos_id,
       cst_total: this.insumos[index].cst_total,
     }
+    console.log()
     this.modeCreate = false
     this.dialog = true
   }
