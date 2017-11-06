@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Insumos } from '../models/insumos.model';
+import { Insumos, InsumosPost } from '../models/insumos.model';
 import { http_url } from '../app.api'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class InsumosService {
@@ -25,8 +24,14 @@ export class InsumosService {
 
   }
 
-  createInsumo(insumo : Insumos) {
-    
+  inserirInsumo(insumo : InsumosPost) : Observable<Insumos> {
+    return this.http.post(`${http_url}/insumos/`, insumo)
+      .map(response => <Insumos>response.json().data)
+  }
+  
+  updateInsumo(id : number, insumo : InsumosPost) : Observable<Insumos> {
+    return this.http.post(`${http_url}/insumos/${id}`, insumo)
+      .map(response => <Insumos>response.json().data)
   }
 
 }

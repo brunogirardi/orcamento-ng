@@ -3,7 +3,7 @@
       <!-- Modal -->
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs pull-right">
-          <li class=""><a href="#tab_1-1" data-toggle="tab">Cadastrar</a></li>
+          <li class="active"><a href="#tab_1-1" data-toggle="tab" aria-expanded="true">Cadastrar</a></li>
           <li class="pull-left header"><i class="fa fa-th"></i> Adicionar Insumo</li>
         </ul>
         <!-- Item Existente -->
@@ -14,19 +14,20 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="descricao">Descrição</label>
-                    <input type="text" class="form-control" name="descricao" placeholder="Descrição do material / serviço" [(ngModel)]="novoInsumo.descricao">
+                    <textarea type="text" class="form-control" name="descricao" placeholder="Descrição do material / serviço" [(ngModel)]="novoInsumo.descricao">
+                    </textarea>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="unidade">Unidade</label>
-                    <input type="text" class="form-control text-center" name="unidade" placeholder="Solicitante" [(ngModel)]="novoInsumo.unidade">
+                    <input type="text" class="form-control text-center" name="unidade" placeholder="Unidade" [(ngModel)]="novoInsumo.unidade">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="tipo_id">Tipo</label>
-                    <select class="form-control" name="tipo_id" placeholder="Solicitante" [(ngModel)]="novoInsumo.tipo_id">
+                    <label for="tipos_id">Tipo</label>
+                    <select class="form-control" name="tipos_id" placeholder="Tipo de Insumo / Serviço" [(ngModel)]="novoInsumo.tipos_id">
                       <option value="{{ tipo.id }}" *ngFor="let tipo of tipos">{{ tipo.descricao }}</option>
                     </select> 
                   </div>
@@ -34,7 +35,7 @@
                 <div class="col-md-3">
                   <div class="form-group">
                     <label for="cst_total">Preço Unitário</label>
-                    <input type="text" class="form-control text-center" name="cst_total" placeholder="Solicitante" [(ngModel)]="novoInsumo.cst_total">
+                    <input type="text" class="form-control text-right" name="cst_total" placeholder="Preço Unitário" [(ngModel)]="novoInsumo.cst_total">
                   </div>
                 </div>
                 
@@ -51,8 +52,8 @@
             <button class="btn btn-block btn-danger" (click)="CloseEvent()">Fechar</button>
           </div>
           <div class="col-md-2 col-md-offset-8">
-            <button class="btn btn-block btn-primary" (click)="NewItemEvent()">Adicionar</button>
+            <button class="btn btn-block btn-primary" (click)="NewItemEvent(novoInsumo.value)">Adicionar</button>
           </div>
         </div>
-    </div> 
+    </div>
   </div>

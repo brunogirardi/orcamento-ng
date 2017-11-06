@@ -10,18 +10,22 @@ import { Insumos } from '../models/insumos.model';
 export class InsumosComponent implements OnInit {
 
   insumos : Insumos[]
+
+  // Variaveis de apoio ao modal de edição
   dialog : boolean = false
+  modeCreate : boolean = true
+  updateInsumo : Insumos = null
 
   constructor(private insumosService : InsumosService) { }
 
   ngOnInit() {
-
     this.insumosService.getLista().subscribe(insumos => this.insumos = insumos)
-
   }
 
-  mostrarDialog() {
+  createInsumo() {
     this.dialog = true
+    this.modeCreate = true
+    this.updateInsumo = null
   }
 
   cancelDialog() {
@@ -29,7 +33,13 @@ export class InsumosComponent implements OnInit {
   }
 
   insertInsumo($event) {
+    this.insumos.push($event)
+  }
 
+  editarInsumo(index : number) {
+    this.dialog = true
+    this.modeCreate = false
+    this.updateInsumo = this.insumos[index]
   }
 
 }

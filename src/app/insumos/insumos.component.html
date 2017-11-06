@@ -8,9 +8,7 @@
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-list"></i> Lista de Insumos</h3>
-            <a class="btn btn-danger btn-xs pull-right" href="#" role="button"><i class="fa fa-trash"></i></a>
-            <a class="btn btn-success btn-xs pull-right" href="#" role="button"><i class="fa fa-pencil"></i></a> 
-            <a class="btn btn-primary btn-xs pull-right" href="#" role="button" (click)="mostrarDialog()"><i class="fa fa-plus-circle"></i></a> 
+            <a class="btn btn-primary btn-xs pull-right" role="button" (click)="createInsumo()"><i class="fa fa-plus-circle"> Adicionar</i></a> 
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -22,9 +20,13 @@
                     <th class="text-center">Tipo</th>
                     <th class="text-center">Preço</th>
                 </tr>
-                <tr *ngFor="let insumo of insumos">
+                <tr *ngFor="let insumo of insumos ; let i = index">
                     <td class="text-center">{{ insumo.id }}</td>
-                    <td>{{ insumo.descricao }}</td>
+                    <td>
+                        {{ insumo.descricao }}
+                        <a class="btn btn-success btn-xs pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger btn-xs pull-right" href="#" role="button"><i class="fa fa-trash"></i></a> 
+                    </td>
                     <td class="text-center">{{ insumo.unidade }}</td>
                     <td class="text-center">{{ insumo.tipo }}</td>
                     <td class="text-right">{{ insumo.cst_total | currency:'BRL' : true }}</td>
@@ -63,4 +65,4 @@
     </div><!-- /Filtros -->
 </div>
 
-<app-modal-edit [mostrarDialog]="dialog" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)"></app-modal-edit>
+<app-modal-edit [mostrarDialog]="dialog" [modeCreate]="dialogMode" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)"></app-modal-edit>
