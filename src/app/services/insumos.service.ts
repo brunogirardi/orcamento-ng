@@ -11,17 +11,13 @@ export class InsumosService {
   constructor(private http: Http) { }
 
   getLista() : Observable<Insumos[]> {
-
     return this.http.get(`${http_url}/insumos`)
       .map(response => response.json().data)
-
   }
 
   getInsumo(id : number) : Observable<Insumos> {
-    
     return this.http.get(`${http_url}/insumos/${id}`)
       .map(response => response.json().data)
-
   }
 
   inserirInsumo(insumo : InsumosPost) : Observable<Insumos> {

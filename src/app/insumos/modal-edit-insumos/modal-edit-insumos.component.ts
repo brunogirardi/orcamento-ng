@@ -6,10 +6,10 @@ import { Tipos } from '../../models/tipos.model';
 import { InsumosService } from '../../services/insumos.service';
 
 @Component({
-  selector: 'app-modal-edit',
-  templateUrl: './modal-edit.component.html'
+  selector: 'app-modal-edit-insumos',
+  templateUrl: './modal-edit-insumos.component.html'
 })
-export class ModalEditComponent implements OnInit {
+export class ModalEditInsumosComponent implements OnInit {
 
   @Input() mostrarDialog : boolean = false
   @Input() modeCreate : boolean = true

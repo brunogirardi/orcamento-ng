@@ -1,0 +1,99 @@
+<div class="content-header">
+    <h1>Edição da CPU</h1><small>Edição dos dados e itens da CPU</small>   
+</div>
+<br>
+
+<div class="col-md-9"><!-- Dados básicos da CPU -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-info-circle"></i> Dados Gerais</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="descricao">Código</label>
+                        <input type="text" class="form-control" name="descricao" placeholder="Código" />
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <textarea type="text" class="form-control" name="descricao" placeholder="Descrição do material / serviço"></textarea>
+                    </div>
+                </div>
+            </div><!-- /Final da linha -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="descricao">Unidade</label>
+                        <input type="text" class="form-control text-center" name="descricao" placeholder="Unidade"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="descricao">Preço Mão de Obra</label>
+                        <input type="text" class="form-control text-right" name="descricao" placeholder="Custo da mão de obra" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="descricao">Preço Outros</label>
+                        <input type="text" class="form-control text-right" name="descricao" placeholder="Outros custos" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="descricao">Preço Total</label>
+                        <input type="text" class="form-control text-right" name="descricao" placeholder="Custo total do serviço" />
+                    </div>
+                </div>
+            </div>
+        </div><!-- /Relação de Solicitações -->
+    </div>
+</div><!-- /Dados básicos da CPU -->
+
+<div class="col-md-9"><!-- Lista de itens da CPU -->
+    <!-- Relação de Solicitações -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title"><i class="fa fa-list"></i> Lista de Insumos e Serviços</h3>
+            <a class="btn btn-primary btn-xs pull-right" role="button" (click)="showModalAddItem()"><i class="fa fa-plus-circle"></i> Adicionar</a> 
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table class="table table-bordered">
+                <tr>
+                    <th class="text-center" style="min-width: 15px; width: 5%">Código</th>
+                    <th class="text-center">Descrição do Insumo</th>
+                    <th class="text-center" style="min-width: 15px; width: 8%">Unidade</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">Quantidade</th>
+                    <th class="text-center">P. Unitário</th>
+                    <th class="text-center">P. Total</th>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td>
+                        CIMENTO PORTLAND
+                        <a class="text-success pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a> 
+                        <a class="text-danger pull-right space-right" (click)="deletarInsumo(i)" href="#" role="button"><i class="fa fa-trash"></i></a> 
+                    </td>
+                    <td class="text-center">SC</td>
+                    <td class="text-center">MATERIAL</td>
+                    <td class="text-right">10</td>
+                    <td class="text-right">20</td>
+                    <td class="text-right">200</td>
+                </tr>
+            </table>
+        </div><!-- /Relação de Solicitações -->
+    </div>
+</div><!-- /Lista de itens da CPU -->
+
+<!-- Modal de acréscimo de item -->
+<app-add-item-modal
+        [mostrarDialog]="modalAddItemStatus" 
+        (onCancel)="hideModalAddItem()" 
+        (onNewItem)="addNewItem($event)">
+</app-add-item-modal>

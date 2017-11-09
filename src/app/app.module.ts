@@ -10,8 +10,14 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
-import { ModalEditComponent } from './insumos/modal-edit/modal-edit.component';
 import { TiposService } from './services/tipos.service';
+import { FiltrosInsumosComponent } from './insumos/filtros-insumos/filtros-insumos.component';
+import { CpusComponent } from './cpus/cpus.component';
+import { CpusService } from './services/cpus.service';
+import { ModalEditCpusComponent } from './cpus/modal-edit-cpus/modal-edit-cpus.component';
+import { ModalEditInsumosComponent } from './insumos/modal-edit-insumos/modal-edit-insumos.component';
+import { CpusPageEditComponent } from './cpus/cpus-page-edit/cpus-page-edit.component';
+import { AddItemModalComponent } from './utilities/add-item-modal/add-item-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,12 @@ import { TiposService } from './services/tipos.service';
     NavComponent,
     FooterComponent,
     HeaderComponent,
-    ModalEditComponent,
+    ModalEditInsumosComponent,
+    FiltrosInsumosComponent,
+    CpusComponent,
+    ModalEditCpusComponent,
+    CpusPageEditComponent,
+    AddItemModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +41,8 @@ import { TiposService } from './services/tipos.service';
   ],
   providers: [
     InsumosService,
-    TiposService
+    TiposService,
+    CpusService
   ],
   bootstrap: [AppComponent]
 })

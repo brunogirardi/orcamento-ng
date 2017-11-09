@@ -8,7 +8,7 @@
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-list"></i> Lista de Insumos</h3>
-            <a class="btn btn-primary btn-xs pull-right" role="button" (click)="createInsumo()"><i class="fa fa-plus-circle"> Adicionar</i></a> 
+            <a class="btn btn-primary btn-xs pull-right" role="button" (click)="createInsumo()"><i class="fa fa-plus-circle"></i> Adicionar</a> 
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -24,8 +24,8 @@
                     <td class="text-center">{{ insumo.id }}</td>
                     <td>
                         {{ insumo.descricao }}
-                        <a class="btn btn-success btn-xs pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a>
-                        <a class="btn btn-danger btn-xs pull-right" (click)="deletarInsumo(i)" href="#" role="button"><i class="fa fa-trash"></i></a> 
+                        <a class="text-success pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a> 
+                        <a class="text-danger pull-right space-right" (click)="deletarInsumo(i)" href="#" role="button"><i class="fa fa-trash"></i></a>
                     </td>
                     <td class="text-center">{{ insumo.unidade }}</td>
                     <td class="text-center">{{ insumo.tipo }}</td>
@@ -37,33 +37,7 @@
 </div>
 
 <div class="col-md-3">
-    <!-- Filtros -->
-    <div class="box box-primary">
-        <div class="box-header with-border">
-            <i class="fa fa-info-circle"></i>
-            <h3 class="box-title">Filtros</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form">
-            <div class="box-body">
-                <div class="form-group">
-                    <label for="id">Código</label>
-                    <input type="text" class="form-control" id="id" placeholder="Descrição sumária" (change)="teste()">
-                </div>  
-                <div class="form-group">
-                    <label for="detalhes">Descrição</label>
-                    <input type="text" class="form-control" id="detalhes" placeholder="Descrição sumária">
-                </div>  
-                <div class="form-group">
-                    <label for="tipo">Tipo de Insumo</label>
-                    <input type="text" class="form-control" id="tipo" placeholder="Unidade de Negocio">
-                </div>
-               
-            </div>
-            <!-- /.box-body -->
-        </form>
-    </div><!-- /Filtros -->
+    <app-filtros-insumos></app-filtros-insumos>
 </div>
 
-<app-modal-edit [mostrarDialog]="dialog" [novoInsumo]="updateInsumo" [modeCreate]="modeCreate" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)" (onUpdatedItem)="updatedInsumo($event)"></app-modal-edit>
+<app-modal-edit-insumos [mostrarDialog]="dialog" [novoInsumo]="updateInsumo" [modeCreate]="modeCreate" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)" (onUpdatedItem)="updatedInsumo($event)"></app-modal-edit-insumos>

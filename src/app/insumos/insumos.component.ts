@@ -10,6 +10,7 @@ import { Insumos, InsumosPost } from '../models/insumos.model';
 export class InsumosComponent implements OnInit {
 
   insumos : Insumos[]
+  insumosFiltered : Insumos[]
   updateItemIndex: number = null
 
   // Variaveis de apoio ao modal de edição
@@ -66,6 +67,10 @@ export class InsumosComponent implements OnInit {
     this.insumos[this.updateItemIndex].cst_total = evento.cst_total
     this.dialog = false
     this.updateItemIndex = null
+  }
+
+  teste() {
+    console.log('teste')
   }
 
 }
