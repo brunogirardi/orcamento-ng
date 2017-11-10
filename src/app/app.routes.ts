@@ -6,7 +6,7 @@ import { CpusPageEditComponent } from './cpus/cpus-page-edit/cpus-page-edit.comp
 export const ROUTES : Routes = [
     { path: '', component: InsumosComponent },
     { path: 'cpus', component: CpusComponent },
-    { path: 'cpus-edit', component: CpusPageEditComponent },
+    { path: 'cpus-edit/:id', component: CpusPageEditComponent },
     // { path: 'create', component: ScCreateComponent },
     // { path: 'view', component: ScViewComponent }
 ] 

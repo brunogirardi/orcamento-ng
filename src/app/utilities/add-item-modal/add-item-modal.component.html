@@ -35,8 +35,8 @@
                 <th class="text-center">Tipo</th>
                 <th class="text-center">Preço</th>
               </tr>
-              <tr *ngFor="let insumo of insumos">
-                <td>{{ insumo.descricao }}</td>
+              <tr *ngFor="let insumo of insumos ; let i = index">
+                <td>{{ insumo.descricao }} <a href="#"  role="button" (click)="addNewItem(i)"><i class="fa fa-plus-circle pull-right text-success"></i></a></td>
                 <td class="text-center" width="13%">{{ insumo.unidade }}</td>
                 <td class="text-center" width="20%">{{ insumo.tipo }}</td>
                 <td class="text-right" width="15%">{{ insumo.cst_total | currency:'BRL' : true }}</td>

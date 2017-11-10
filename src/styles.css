@@ -92,3 +92,8 @@
     margin-right: 10px
   }
 
+  .input-container-hidden {
+    width: 100%;
+    margin: 0px;
+    border: none;
+  }    

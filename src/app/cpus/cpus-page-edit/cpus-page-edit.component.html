@@ -10,46 +10,49 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="descricao">Código</label>
-                        <input type="text" class="form-control" name="descricao" placeholder="Código" />
+            {{ cpus | json }}
+            <form #form="ngForm" novalidate >
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="id">Código</label>
+                            <input type="text" class="form-control" name="id" placeholder="Código" [(ngModel)]="cpus.id" />
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="descricao">Descrição</label>
+                            <textarea type="text" class="form-control" name="descricao" [(ngModel)]="cpus.descricao" placeholder="Descrição do material / serviço"></textarea>
+                        </div>
+                    </div>
+                </div><!-- /Final da linha -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="unidade">Unidade</label>
+                            <input type="text" class="form-control text-center" name="unidade" [(ngModel)]="cpus.unidade" placeholder="Unidade"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="cst_mo">Preço Mão de Obra</label>
+                            <input type="text" class="form-control text-right" name="cst_mo" placeholder="Custo da mão de obra" readonly/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="cst_outros">Preço Outros</label>
+                            <input type="text" class="form-control text-right" name="cst_outros" placeholder="Outros custos" readonly/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="cst_total">Preço Total</label>
+                            <input type="text" class="form-control text-right" name="cst_total" [(ngModel)]="cpus.cst_total"  placeholder="Custo total do serviço" readonly/>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-10">
-                    <div class="form-group">
-                        <label for="descricao">Descrição</label>
-                        <textarea type="text" class="form-control" name="descricao" placeholder="Descrição do material / serviço"></textarea>
-                    </div>
-                </div>
-            </div><!-- /Final da linha -->
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="descricao">Unidade</label>
-                        <input type="text" class="form-control text-center" name="descricao" placeholder="Unidade"/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="descricao">Preço Mão de Obra</label>
-                        <input type="text" class="form-control text-right" name="descricao" placeholder="Custo da mão de obra" />
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="descricao">Preço Outros</label>
-                        <input type="text" class="form-control text-right" name="descricao" placeholder="Outros custos" />
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="descricao">Preço Total</label>
-                        <input type="text" class="form-control text-right" name="descricao" placeholder="Custo total do serviço" />
-                    </div>
-                </div>
-            </div>
+            </form>
         </div><!-- /Relação de Solicitações -->
     </div>
 </div><!-- /Dados básicos da CPU -->
@@ -69,22 +72,22 @@
                     <th class="text-center">Descrição do Insumo</th>
                     <th class="text-center" style="min-width: 15px; width: 8%">Unidade</th>
                     <th class="text-center">Tipo</th>
-                    <th class="text-center">Quantidade</th>
-                    <th class="text-center">P. Unitário</th>
-                    <th class="text-center">P. Total</th>
+                    <th class="text-center" width="10%">Quantidade</th>
+                    <th class="text-center" width="10%">P. Unitário</th>
+                    <th class="text-center" width="10%">P. Total</th>
                 </tr>
-                <tr>
-                    <td class="text-center">2</td>
+                <tr *ngFor="let item of cpus.itens">
+                    <td class="text-center">{{ item.insumos_id }}</td>
                     <td>
-                        CIMENTO PORTLAND
+                        {{ item.descricao }}
                         <a class="text-success pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a> 
                         <a class="text-danger pull-right space-right" (click)="deletarInsumo(i)" href="#" role="button"><i class="fa fa-trash"></i></a> 
                     </td>
-                    <td class="text-center">SC</td>
-                    <td class="text-center">MATERIAL</td>
-                    <td class="text-right">10</td>
-                    <td class="text-right">20</td>
-                    <td class="text-right">200</td>
+                    <td class="text-center">{{ item.unidade }}</td>
+                    <td class="text-center">{{ item.tipo }}</td>
+                    <td class="text-right"><input type="text" class="input-container-hidden text-right" [(ngModel)]="item.quantidade"/></td>
+                    <td class="text-right">{{ item.cst_total  | currency:'BRL' : true }}</td>
+                    <td class="text-right">{{ item.cst_total * item.quantidade  | currency:'BRL' : true }}</td>
                 </tr>
             </table>
         </div><!-- /Relação de Solicitações -->

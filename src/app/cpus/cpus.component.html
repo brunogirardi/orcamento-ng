@@ -24,8 +24,9 @@
                   <td class="text-center">{{ item.id }}</td>
                   <td>
                       {{ item.descricao }}
-                      <a class="btn btn-success btn-xs pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a>
-                      <a class="btn btn-danger btn-xs pull-right" (click)="deletarInsumo(i)" href="#" role="button"><i class="fa fa-trash"></i></a> 
+                      {{ item.id }}
+                      <a class="btn btn-success btn-xs pull-right" [routerLink]="['/cpus-edit', item.id]" role="button"><i class="fa fa-pencil"></i></a>
+                      <a class="btn btn-danger btn-xs pull-right" role="button"><i class="fa fa-trash"></i></a> 
                   </td>
                   <td class="text-center">{{ item.unidade }}</td>
                   <td class="text-center">{{ item.tipo }}</td>

@@ -18,5 +18,9 @@ export class CpusService {
       .map(response => response.json().data)
   }
 
+  getCpu(id : number) {
+    return this.http.get(`${http_url}/cpus/${id}`)
+    .map(response => response.json().data) 
+  }
 
 }

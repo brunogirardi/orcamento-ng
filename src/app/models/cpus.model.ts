@@ -7,6 +7,7 @@ interface Cpus {
     unidade: string
     tipos_id: number
     tipo: string
+    cst_total: number
     itens: Cpu_item[]
 }
 
@@ -17,6 +18,7 @@ interface Cpu_item {
     unidade: string
     tipos_id: number
     tipo: string
-    cst_total: number
     quantidade: number
+    cst_total: number
+    isNew: boolean
 }
