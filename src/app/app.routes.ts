@@ -7,6 +7,5 @@ export const ROUTES : Routes = [
     { path: '', component: InsumosComponent },
     { path: 'cpus', component: CpusComponent },
     { path: 'cpus-edit/:id', component: CpusPageEditComponent },
-    // { path: 'create', component: ScCreateComponent },
-    // { path: 'view', component: ScViewComponent }
+    { path: 'cpus-create', component: CpusPageEditComponent }
 ] 

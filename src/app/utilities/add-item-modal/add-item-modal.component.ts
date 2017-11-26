@@ -30,19 +30,9 @@ export class AddItemModalComponent implements OnInit {
     this.onCancel.emit();
   }
 
-  AddNewItem(i : number) {
-    
-    let newItem : Cpu_item = {
-      descricao: this.insumos[i].descricao,
-      cst_total: this.insumos[i].cst_total,
-      id: 0,
-      insumos_id: this.insumos[i].id,
-      quantidade: 0,
-      tipo: this.insumos[i].tipo,
-      tipos_id: this.insumos[i].tipos_id,
-      unidade: this.insumos[i].unidade,
-      isNew: true
-    }
+  addNewItem(i : number) {
+
+    let newItem : Cpu_item = new Cpu_item(this.insumos[i].id, this.insumos[i].descricao, this.insumos[i].unidade,  this.insumos[i].tipos_id, this.insumos[i].tipo, this.insumos[i].cst_total, 3, 0)
     this.onNewItem.emit(newItem);
 
   }

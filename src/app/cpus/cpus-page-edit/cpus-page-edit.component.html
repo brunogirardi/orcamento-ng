@@ -1,22 +1,35 @@
 <div class="content-header">
     <h1>Edição da CPU</h1><small>Edição dos dados e itens da CPU</small>   
 </div>
+
 <br>
 
-<div class="col-md-9"><!-- Dados básicos da CPU -->
+<div class="col-md-12" *ngIf="alertas">
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h5 class="box-title">Informações salvas com sucesso!</h5>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" (click)="fecharAlerta()"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12"><!-- Dados básicos da CPU -->
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title"><i class="fa fa-info-circle"></i> Dados Gerais</h3>
+            <a class="btn btn-warning btn-xs pull-right" *ngIf="id != null" role="button" (click)="atualizarCpu()"><i class="fa fa-plus-circle"></i> Atualizar</a>
+            <a class="btn btn-warning btn-xs pull-right" *ngIf="id == null" role="button" (click)="inserirCpu()"><i class="fa fa-plus-circle"></i> Adicionar</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            {{ cpus | json }}
             <form #form="ngForm" novalidate >
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="id">Código</label>
-                            <input type="text" class="form-control" name="id" placeholder="Código" [(ngModel)]="cpus.id" />
+                            <input type="text" class="form-control text-center" [readonly]="id == null" name="id" placeholder="Código" [(ngModel)]="cpus.id" />
                         </div>
                     </div>
                     <div class="col-md-10">
@@ -48,7 +61,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="cst_total">Preço Total</label>
-                            <input type="text" class="form-control text-right" name="cst_total" [(ngModel)]="cpus.cst_total"  placeholder="Custo total do serviço" readonly/>
+                            <input type="text" class="form-control text-right" name="cst_total" [ngModel]="cpus.cst_total  | currency:'BRL' : true"  placeholder="Custo total do serviço" readonly/>
                         </div>
                     </div>
                 </div>
@@ -57,7 +70,7 @@
     </div>
 </div><!-- /Dados básicos da CPU -->
 
-<div class="col-md-9"><!-- Lista de itens da CPU -->
+<div class="col-md-12"><!-- Lista de itens da CPU -->
     <!-- Relação de Solicitações -->
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -76,18 +89,20 @@
                     <th class="text-center" width="10%">P. Unitário</th>
                     <th class="text-center" width="10%">P. Total</th>
                 </tr>
-                <tr *ngFor="let item of cpus.itens">
+                <tr *ngFor="let item of cpus.itens ; let i = index">
                     <td class="text-center">{{ item.insumos_id }}</td>
                     <td>
                         {{ item.descricao }}
-                        <a class="text-success pull-right" (click)="editarInsumo(i)" href="#" role="button"><i class="fa fa-pencil"></i></a> 
-                        <a class="text-danger pull-right space-right" (click)="deletarInsumo(i)" href="#" role="button"><i class="fa fa-trash"></i></a> 
+                        <a class="text-danger pull-right space-right" (click)="deletarInsumo(i)" role="button"><i class="fa fa-trash"></i></a> 
+                        <span *ngIf="item.status == 2" class="label label-danger pull-right space-right" (click)="deletarInsumo(i)" >Excluido</span>
+                        <span *ngIf="item.status == 3" class="label label-primary pull-right space-right">Novo</span>
+                        <span *ngIf="item.status == 1" class="label label-success pull-right space-right">Modificado</span>
                     </td>
                     <td class="text-center">{{ item.unidade }}</td>
                     <td class="text-center">{{ item.tipo }}</td>
                     <td class="text-right"><input type="text" class="input-container-hidden text-right" [(ngModel)]="item.quantidade"/></td>
                     <td class="text-right">{{ item.cst_total  | currency:'BRL' : true }}</td>
-                    <td class="text-right">{{ item.cst_total * item.quantidade  | currency:'BRL' : true }}</td>
+                    <td class="text-right">{{ ((item.status == 2) ? 0 : 1) * item.cst_total * item.quantidade  | currency:'BRL' : true }}</td>
                 </tr>
             </table>
         </div><!-- /Relação de Solicitações -->

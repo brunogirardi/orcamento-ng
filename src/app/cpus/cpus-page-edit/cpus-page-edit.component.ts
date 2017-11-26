@@ -10,22 +10,19 @@ import { ActivatedRoute } from '@angular/router';
 export class CpusPageEditComponent implements OnInit {
 
   modalAddItemStatus : boolean = false
-  id : any
-  cpus : Cpus = {
-    id : null,
-    descricao: "",
-    itens: [],
-    unidade: "",
-    cst_total: 0,
-    tipos_id: 1,
-    tipo: "MATERIAL"
-  }
+  id : any = null
+  cpus : Cpus = new Cpus(null, "", "", null, "", 0, [])
+  alertas : boolean = false
 
   constructor(private cpuService : CpusService, private route : ActivatedRoute) { }
 
   ngOnInit() {
     this.id =  this.route.snapshot.paramMap.get('id');
-    this.cpuService.getCpu(this.id).subscribe(cpus => this.cpus = cpus)
+    if (this.id != null) {
+      this.cpuService.getCpu(this.id).subscribe(cpu => { 
+        this.cpus = cpu
+      })
+    } 
   }
 
   showModalAddItem() {
@@ -37,8 +34,34 @@ export class CpusPageEditComponent implements OnInit {
   }
 
   addNewItem(event : Cpu_item) {
-    this.cpus.itens.push(event)
+    this.cpus.adicionarItem(event)
     this.hideModalAddItem()
+  }
+
+  fecharAlerta() {
+    this.alertas = false
+  }
+
+  mostrarAlerta() {
+    this.alertas = true
+  }
+
+  deletarInsumo(index) {
+    this.cpus.removerItem(index)
+  }
+
+  inserirCpu() {
+    this.cpuService.insertCpu(this.cpus.gerarPost()).subscribe(data => {
+      this.cpus = data
+      this.mostrarAlerta()
+    })
+  }
+
+  atualizarCpu() {
+    this.cpuService.updateCpu(this.id, this.cpus.gerarPost()).subscribe(data => {
+      this.cpus = data
+      this.mostrarAlerta()
+    })
   }
 
 }

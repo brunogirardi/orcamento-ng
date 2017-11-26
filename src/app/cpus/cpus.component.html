@@ -8,7 +8,7 @@
   <div class="box box-primary">
       <div class="box-header with-border">
           <h3 class="box-title"><i class="fa fa-list"></i> Lista de CPUs</h3>
-          <a class="btn btn-primary btn-xs pull-right" role="button" (click)="createInsumo()"><i class="fa fa-plus-circle"></i> Adicionar</a> 
+          <a class="btn btn-primary btn-xs pull-right" role="button" [routerLink]="['/cpus-create']"><i class="fa fa-plus-circle"></i> Adicionar</a> 
       </div>
       <!-- /.box-header -->
       <div class="box-body">
@@ -24,9 +24,8 @@
                   <td class="text-center">{{ item.id }}</td>
                   <td>
                       {{ item.descricao }}
-                      {{ item.id }}
-                      <a class="btn btn-success btn-xs pull-right" [routerLink]="['/cpus-edit', item.id]" role="button"><i class="fa fa-pencil"></i></a>
-                      <a class="btn btn-danger btn-xs pull-right" role="button"><i class="fa fa-trash"></i></a> 
+                      <a class="text-primary pull-right space-right" [routerLink]="['/cpus-edit', item.id]" role="button"><i class="fa fa-pencil"></i></a>
+                      <a class="text-danger pull-right space-right" role="button"><i class="fa fa-trash"></i></a> 
                   </td>
                   <td class="text-center">{{ item.unidade }}</td>
                   <td class="text-center">{{ item.tipo }}</td>
