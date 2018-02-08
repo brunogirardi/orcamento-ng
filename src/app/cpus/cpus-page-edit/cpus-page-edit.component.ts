@@ -12,7 +12,7 @@ export class CpusPageEditComponent implements OnInit {
   modalAddItemStatus : boolean = false
   id : any = null
   cpus : Cpus = new Cpus(null, "", "", null, "", 0, [])
-  alertas : boolean = false
+  alertas : boolean = false 
 
   constructor(private cpuService : CpusService, private route : ActivatedRoute) { }
 
@@ -22,7 +22,7 @@ export class CpusPageEditComponent implements OnInit {
       this.cpuService.getCpu(this.id).subscribe(cpu => { 
         this.cpus = cpu
       })
-    } 
+    }
   }
 
   showModalAddItem() {

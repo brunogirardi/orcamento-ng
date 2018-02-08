@@ -10,6 +10,10 @@ class Cpus {
     tipos_id: number
     tipo: string
     cst_total: number
+    cst_mo: number
+    cst_outros: number
+    cst_encargos: number
+    cst_bdi : number
     itens: Cpu_item[]
 
     constructor(id: number, descricao: string, unidade: string, tipos_id: number, tipo: string, cst_total: number, itens: Cpu_item[] = [])
@@ -20,6 +24,10 @@ class Cpus {
         this.tipos_id = tipos_id
         this.tipo = tipo
         this.cst_total = cst_total
+        this.cst_mo = 0
+        this.cst_outros = 0
+        this.cst_encargos = 0
+        this.cst_bdi = 0
         this.itens = itens
     }
 
@@ -38,7 +46,7 @@ class Cpus {
                 this.itens[i].status = 3
             }
             this.itens[i].resetarQuantidade()
-        } else {
+        } else {    
             this.itens[i].status = 2
             this.itens[i].quantidade = 0
         }
@@ -54,12 +62,18 @@ class Cpus {
 
     calcularTotal() {
         let total : number = 0
+        let cst_mo : number = 0
         this.itens.forEach(item => {
             if (item.status != 2) {
                 total += Number((item.cst_total * item.quantidade).toFixed(2))
+                if (item.tipos_id == 2) { cst_mo += Number((item.cst_total * item.quantidade).toFixed(2)) }
             }
         })
-        this.cst_total = total
+        this.cst_mo = cst_mo
+        this.cst_outros = total - cst_mo
+        this.cst_encargos = Number((cst_mo * 1.24).toFixed(2))
+        this.cst_bdi = Number(((total + this.cst_encargos) * 0.3).toFixed(2))
+        this.cst_total = total + this.cst_encargos + this.cst_bdi
     }
 
     gerarPost() : Cpus_post {
@@ -80,7 +94,9 @@ class Cpus {
             id : this.id,
             descricao : this.descricao,
             unidade : this.unidade,
-            cst_total : this.cst_total,
+            cst_total : this.cst_mo + this.cst_outros,
+            cst_mo : this.cst_mo,
+            cst_outros : this.cst_outros,
             itens : itens
         }
 
@@ -143,9 +159,11 @@ class Cpu_item {
 interface Cpus_post {
 
     id: number,
-    descricao: string;
-    unidade: string;
+    descricao: string,
+    unidade: string,
     cst_total: number,
+    cst_mo: number,
+    cst_outros: number
 
     itens : Cpus_item_post[]
 

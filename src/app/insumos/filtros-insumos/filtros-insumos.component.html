@@ -14,7 +14,8 @@
           </div>  
           <div class="form-group">
               <label for="detalhes">Descrição</label>
-              <input type="text" class="form-control" id="detalhes" placeholder="Descrição sumária">
+              <!-- <input type="text" class="form-control" id="detalhes" placeholder="Descrição sumária"> -->
+              <ng-select [allowClear]="true" [(items)]="insumos" (data)="teste($event)" placeholder="Selecione o tipo"></ng-select>
           </div>  
           <div class="form-group">
               <label for="tipo">Tipo de Insumo</label>

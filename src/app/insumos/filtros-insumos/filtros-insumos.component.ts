@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TiposService } from '../../services/tipos.service';
 import { Tipos } from '../../models/tipos.model';
+import {SelectModule} from 'ng2-select';
+import { InsumosService } from '../../services/insumos.service';
+
 
 @Component({
   selector: 'app-filtros-insumos',
@@ -13,6 +16,7 @@ export class FiltrosInsumosComponent implements OnInit {
   @Output() listaFiltrada : any;
 
   tipos : Tipos[]
+  insumos : any[]
   
   filtrosNumber : TipoFiltros[] = [
     { id: 1, desc: "MAIOR QUE", campo1: true, campo2: false},
@@ -34,14 +38,12 @@ export class FiltrosInsumosComponent implements OnInit {
     { id: 7, desc: "NÃO CONTEM", campo1: true, campo2: false},
   ]
 
-  constructor(private tiposService : TiposService) { 
-    this.tipos = this.tiposService.getLista()
+  constructor(private insumosService : InsumosService) { 
+    this.insumos = this.insumosService.listaSelect2
   }
 
   ngOnInit() {
   }
-
-
 
 }
 

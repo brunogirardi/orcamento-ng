@@ -10,15 +10,15 @@
           <div class="col-md-8">
             <div class="form-group">
               <label for="descricao">Descrição</label>
-              <input type="text" name="descricao" class="form-control">
+              <input type="text" name="descricao" [(ngModel)]="searchInput" class="form-control" (keyup)="filtrarLista()">
             </div>
           </div>
           <div class="col-md-4">
               <div class="form-group">
                 <label for="tipo">Tipo</label>
-                <select name="tipo" class="form-control">
-                  <option value="0">TODOS</option>
-                  <option  *ngFor="let tipo of tipos" value="{{ tipo.id }}">{{ tipo.descricao }}</option>
+                <select name="tipo" class="form-control" [(ngModel)]="searchTipo" (change)="filtrarLista()">
+                  <option value="0" selected="true">TODOS</option>
+                  <option *ngFor="let tipo of tipos" value="{{ tipo.id }}">{{ tipo.descricao }}</option>
                 </select>
               </div>
             </div>
@@ -27,7 +27,7 @@
         
         <!-- Tabela de Resultados -->
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12"  style="overflow-y:scroll; max-height:400px">
             <table class="table table-bordered table-sm">
               <tr>
                 <th class="text-center">Descrição</th>
@@ -35,21 +35,24 @@
                 <th class="text-center">Tipo</th>
                 <th class="text-center">Preço</th>
               </tr>
-              <tr *ngFor="let insumo of insumos ; let i = index">
+              <tr *ngFor="let insumo of insumosFiltro; let i = index">
                 <td>{{ insumo.descricao }} <a role="button" (click)="addNewItem(i)"><i class="fa fa-plus-circle pull-right text-success"></i></a></td>
                 <td class="text-center" width="13%">{{ insumo.unidade }}</td>
                 <td class="text-center" width="20%">{{ insumo.tipo }}</td>
                 <td class="text-right" width="15%">{{ insumo.cst_total | currency:'BRL' : true }}</td>
               </tr>
             </table>
-            <ul class="pagination pagination-sm no-margin pull-right">
+            <!-- <ul class="pagination pagination-sm no-margin pull-right">
               <li><a href="#">«</a></li>
               <li><a href="#">1</a></li>
               <li><a href="#">2</a></li>
               <li><a href="#">3</a></li>
               <li><a href="#">»</a></li>
-            </ul>
+            </ul> -->
           </div>
+          <!-- <div class="row text-center">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div> -->
         </div>
         <!-- /Tabela de Resultados -->
       </div><!-- /Corpo da box -->

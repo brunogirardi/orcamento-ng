@@ -13,6 +13,8 @@ export class CpusService {
   constructor(private http: Http) {
   }
 
+  // #region consultas HTTP na API
+
   getLista() : Observable<Cpus[]> {
     // Endereço API: http://orcamento-api.dev/api/cpus
     return this.http.get(`${http_url}/cpus`)
@@ -36,9 +38,13 @@ export class CpusService {
     return this.http.patch(`${http_url}/cpus/${id}/full`, item)
       .map(response => this.createCpuInstance(response.json().data))
   }
+  // #endregion
 
-  // Helper Functions
+  // #region Helper functions
+
   createCpuInstance(data : any) {
+
+    // console.log(data)
 
     let cpu = new Cpus(
       data.id,
@@ -57,5 +63,5 @@ export class CpusService {
 
     return cpu
   }
-
+  // #endregion
 }

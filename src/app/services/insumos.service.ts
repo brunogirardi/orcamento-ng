@@ -8,11 +8,49 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class InsumosService {
 
-  constructor(private http: Http) { }
+  listaInsumos : Insumos[] = []
+  listaInsumosComCpus : Insumos[] = []
+  listaSelect2 : any[] = []
 
-  getLista() : Observable<Insumos[]> {
+  constructor(private http: Http) { 
+    this.loadLista().subscribe(res => {   
+      this.updateLista(res)
+    });
+  }
+
+  updateLista(itens) : void {
+    itens.map(item => {
+      // Create the object
+      let novo_item = {
+        id : item.id,
+        descricao : item.descricao,
+        unidade : item.unidade,
+        tipo : item.tipo,
+        tipos_id : item.tipos_id,
+        cst_total : item.cst_total
+      }
+      // Add to the listaInsumos if the item is differente of CPU
+      if (novo_item.tipos_id != 6) {
+        this.listaInsumos.push(novo_item)
+      }
+      // Creates the listaInsumosComCpus with all the objects
+      this.listaInsumosComCpus.push(novo_item)
+
+      this.listaSelect2.push({ id: item.id, text: item.descricao })
+    })
+  }
+
+  loadLista() : Observable<Insumos[]> {
     return this.http.get(`${http_url}/insumos`)
       .map(response => response.json().data)
+  }
+
+  getLista() : Insumos[] {
+    return this.listaInsumos
+  }
+
+  getListaComCpus() : Insumos[] {
+    return this.listaInsumosComCpus
   }
 
   getInsumo(id : number) : Observable<Insumos> {

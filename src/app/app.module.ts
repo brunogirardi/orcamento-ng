@@ -18,6 +18,12 @@ import { ModalEditCpusComponent } from './cpus/modal-edit-cpus/modal-edit-cpus.c
 import { ModalEditInsumosComponent } from './insumos/modal-edit-insumos/modal-edit-insumos.component';
 import { CpusPageEditComponent } from './cpus/cpus-page-edit/cpus-page-edit.component';
 import { AddItemModalComponent } from './utilities/add-item-modal/add-item-modal.component';
+import { SelectModule } from 'ng2-select';
+import { OrcamentoIndexComponent } from './orcamento/geral/orcamento-index/orcamento-index.component';
+import { OrcamentoService } from './services/orcamento.service';
+import { OrcamentoStoreComponent } from './orcamento/geral/orcamento-store/orcamento-store.component';
+import { OrcamentoBdiGeralComponent } from './orcamento/bdi/orcamento-bdi-geral/orcamento-bdi-geral.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -32,17 +38,23 @@ import { AddItemModalComponent } from './utilities/add-item-modal/add-item-modal
     ModalEditCpusComponent,
     CpusPageEditComponent,
     AddItemModalComponent,
+    OrcamentoIndexComponent,
+    OrcamentoStoreComponent,
+    OrcamentoBdiGeralComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
+    SelectModule,
+    NgxPaginationModule,
     RouterModule.forRoot(ROUTES) 
   ],
   providers: [
     InsumosService,
     TiposService,
-    CpusService
+    CpusService,
+    OrcamentoService
   ],
   bootstrap: [AppComponent]
 })

@@ -40,25 +40,37 @@
                     </div>
                 </div><!-- /Final da linha -->
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="unidade">Unidade</label>
                             <input type="text" class="form-control text-center" name="unidade" [(ngModel)]="cpus.unidade" placeholder="Unidade"/>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="cst_mo">Preço Mão de Obra</label>
-                            <input type="text" class="form-control text-right" name="cst_mo" placeholder="Custo da mão de obra" readonly/>
+                            <input type="text" class="form-control text-right" name="cst_mo" [ngModel]="cpus.cst_mo  | currency:'BRL' : true" placeholder="Custo da mão de obra" readonly/>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="cst_mo">Encargos</label>
+                            <input type="text" class="form-control text-right" name="cst_encargos" [ngModel]="cpus.cst_encargos  | currency:'BRL' : true" placeholder="Custo da mão de obra" readonly/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="cst_outros">Preço Outros</label>
-                            <input type="text" class="form-control text-right" name="cst_outros" placeholder="Outros custos" readonly/>
+                            <input type="text" class="form-control text-right" name="cst_outros" [ngModel]="cpus.cst_outros  | currency:'BRL' : true" placeholder="Outros custos" readonly/>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="cst_outros">BDI</label>
+                            <input type="text" class="form-control text-right" name="cst_bdi" [ngModel]="cpus.cst_bdi  | currency:'BRL' : true" placeholder="Outros custos" readonly/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="cst_total">Preço Total</label>
                             <input type="text" class="form-control text-right" name="cst_total" [ngModel]="cpus.cst_total  | currency:'BRL' : true"  placeholder="Custo total do serviço" readonly/>
@@ -102,7 +114,7 @@
                     <td class="text-center">{{ item.tipo }}</td>
                     <td class="text-right"><input type="text" class="input-container-hidden text-right" [(ngModel)]="item.quantidade"/></td>
                     <td class="text-right">{{ item.cst_total  | currency:'BRL' : true }}</td>
-                    <td class="text-right">{{ ((item.status == 2) ? 0 : 1) * item.cst_total * item.quantidade  | currency:'BRL' : true }}</td>
+                    <td class="text-right">{{ ((item.status == 2) ? 0 : 1) * (item.cst_total * item.quantidade).toFixed(2) | currency:'BRL' : true }}</td>
                 </tr>
             </table>
         </div><!-- /Relação de Solicitações -->

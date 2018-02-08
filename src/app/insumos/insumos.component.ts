@@ -21,7 +21,7 @@ export class InsumosComponent implements OnInit {
   constructor(private insumosService : InsumosService) { }
 
   ngOnInit() {
-    this.insumosService.getLista().subscribe(insumos => this.insumos = insumos)
+    this.insumos = this.insumosService.getLista()
   }
 
   createInsumo() {
