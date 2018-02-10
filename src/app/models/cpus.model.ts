@@ -1,6 +1,6 @@
 import { Output, EventEmitter } from "@angular/core";
 
-export { Cpus, Cpu_item, Cpus_item_post, Cpus_post }
+export { Cpus, Cpu_item, Cpus_item_post, Cpus_post, Cpu_lista }
 
 class Cpus {
 
@@ -12,11 +12,41 @@ class Cpus {
     cst_total: number
     cst_mo: number
     cst_outros: number
+    cst_subtotal : number
     cst_encargos: number
     cst_bdi : number
     itens: Cpu_item[]
+    
+    
+    private _taxa_bdi : number = 26
+    get taxa_bdi():number {
+        return this._taxa_bdi
+    }
+    set taxa_bdi(val:number) {
+        this._taxa_bdi = Number(val)
+        this.calcularTotal()
+    }
 
-    constructor(id: number, descricao: string, unidade: string, tipos_id: number, tipo: string, cst_total: number, itens: Cpu_item[] = [])
+    private _taxa_ls_hora : number = 120
+    get taxa_ls_hora():number {
+        return this._taxa_ls_hora
+    }
+    set taxa_ls_hora(val:number) {
+        this._taxa_ls_hora = Number(val)
+        this.calcularTotal()
+    }
+
+    private _taxa_ls_mes : number = 80
+    get taxa_ls_mes():number {
+        return this._taxa_ls_mes
+    }
+    set taxa_ls_mes(val:number) {
+        this._taxa_ls_mes = Number(val)
+        this.calcularTotal()
+    }
+
+    constructor(id: number, descricao: string, unidade: string, tipos_id: number, tipo: string, cst_total: number,
+                itens: Cpu_item[] = [])
     {
         this.id = id
         this.descricao = descricao
@@ -61,19 +91,18 @@ class Cpus {
     }
 
     calcularTotal() {
-        let total : number = 0
         let cst_mo : number = 0
+        let cst_outros : number = 0
         this.itens.forEach(item => {
-            if (item.status != 2) {
-                total += Number((item.cst_total * item.quantidade).toFixed(2))
-                if (item.tipos_id == 2) { cst_mo += Number((item.cst_total * item.quantidade).toFixed(2)) }
-            }
+            cst_mo += Number((item.cst_mo * item.quantidade).toFixed(2))
+            cst_outros += Number((item.cst_outros * item.quantidade).toFixed(2))
         })
         this.cst_mo = cst_mo
-        this.cst_outros = total - cst_mo
-        this.cst_encargos = Number((cst_mo * 1.24).toFixed(2))
-        this.cst_bdi = Number(((total + this.cst_encargos) * 0.3).toFixed(2))
-        this.cst_total = total + this.cst_encargos + this.cst_bdi
+        this.cst_outros = cst_outros
+        this.cst_encargos = Number((cst_mo * this._taxa_ls_hora / 100).toFixed(2))
+        this.cst_subtotal = this.cst_mo + this.cst_outros + this.cst_encargos
+        this.cst_bdi = Number((this.cst_subtotal * this._taxa_bdi / 100).toFixed(2))
+        this.cst_total = this.cst_subtotal + this.cst_bdi
     }
 
     gerarPost() : Cpus_post {
@@ -114,6 +143,8 @@ class Cpu_item {
     tipos_id: number
     tipo: string
     cst_total: number
+    cst_mo: number
+    cst_outros: number
     status: number
     quant_original: number = null
 
@@ -130,7 +161,8 @@ class Cpu_item {
     }
 
     constructor(insumos_id: number, descricao: string, unidade: string, tipos_id: number,
-                tipo: string, cst_total: number, status: number, quantidade: number, id : number = null) 
+                tipo: string, cst_total: number, status: number, quantidade: number, id : number = null,
+                cst_mo: number, cst_outros: number) 
     {
         this.id = id
         this.insumos_id = insumos_id
@@ -139,6 +171,8 @@ class Cpu_item {
         this.tipos_id = tipos_id
         this.tipo = tipo
         this.cst_total = cst_total
+        this.cst_mo = cst_mo
+        this.cst_outros = cst_outros
         this.status = status
         this._quantidade = quantidade
         if (status == 0) {
@@ -153,6 +187,53 @@ class Cpu_item {
         }
         this._quantidade = this.quant_original
     }
+
+}
+
+// Class para listagem de cpus e com implementação para alterar as LS e BDI conforme parametrização do usuário
+class Cpu_lista {
+
+    itens : Cpus[] = []
+
+    private _taxa_bdi : number = 0
+    get taxa_bdi():number {
+        return this._taxa_bdi
+    }
+    set taxa_bdi(val:number) {
+        this._taxa_bdi = Number(val)
+        this.calcularBonificacoes()
+    }
+
+    private _taxa_ls_hora : number = 120
+    get taxa_ls_hora():number {
+        return this._taxa_ls_hora
+    }
+    set taxa_ls_hora(val:number) {
+        this._taxa_ls_hora = Number(val)
+        this.calcularBonificacoes()
+    }
+
+    private _taxa_ls_mes : number = 80
+    get taxa_ls_mes():number {
+        return this._taxa_ls_mes
+    }
+    set taxa_ls_mes(val:number) {
+        this._taxa_ls_mes = Number(val)
+        this.calcularBonificacoes()
+    }
+
+    calcularBonificacoes() {
+
+        this.itens.forEach(item => {
+            item.cst_encargos = 
+            item.cst_encargos = Number((item.cst_mo * this._taxa_ls_hora / 100).toFixed(2))
+            item.cst_subtotal = item.cst_mo + item.cst_outros + item.cst_encargos
+            item.cst_bdi = Number((item.cst_subtotal * this._taxa_bdi / 100).toFixed(2))
+            item.cst_total = item.cst_subtotal + item.cst_bdi
+        })
+
+    }
+
 
 }
 

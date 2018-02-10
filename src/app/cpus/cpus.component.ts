@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CpusService } from '../services/cpus.service';
-import { Cpus } from '../models/cpus.model';
+import { Cpu_lista } from '../models/cpus.model';
 
 @Component({
   selector: 'app-cpus',
@@ -10,12 +10,11 @@ export class CpusComponent implements OnInit {
 
   constructor(private cpuService : CpusService) { }
 
-  listaCpus : Cpus[]
+  listaCpus : Cpu_lista = new Cpu_lista()
 
   ngOnInit() {
-    this.cpuService.getLista().subscribe(cpu => this.listaCpus = cpu)
+    this.cpuService.getLista().subscribe(cpu => this.listaCpus.itens = cpu)
   }
-
   
 
 }

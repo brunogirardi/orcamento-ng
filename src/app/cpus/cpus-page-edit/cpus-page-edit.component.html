@@ -15,6 +15,41 @@
     </div>
 </div>
 
+<div class="col-md-12">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h5 class="box-title">Parametros</h5>
+            <div class="box-tools pull-right"> 
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <form #form="ngForm" novalidate2>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="id">BDI (%)</label>
+                            <input type="text" class="form-control text-center" name="taxa_bdi" placeholder="28" [(ngModel)]="cpus.taxa_bdi" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="descricao">Leis Sociais - Horista (%)</label>
+                            <input type="text" class="form-control text-center" name="taxa_ls_hora" placeholder="124" [(ngModel)]="cpus.taxa_ls_hora" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="descricao">Leis Sociais - Mensalista (%)</label>
+                            <input type="text" class="form-control text-center" name="taxa_ls_mes" placeholder="86" [(ngModel)]="cpus.taxa_ls_mes" />
+                        </div>
+                    </div>
+                </div><!-- /Final da linha -->
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="col-md-12"><!-- Dados básicos da CPU -->
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -32,23 +67,23 @@
                             <input type="text" class="form-control text-center" [readonly]="id == null" name="id" placeholder="Código" [(ngModel)]="cpus.id" />
                         </div>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <label for="descricao">Descrição</label>
                             <textarea type="text" class="form-control" name="descricao" [(ngModel)]="cpus.descricao" placeholder="Descrição do material / serviço"></textarea>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="unidade">Unidade</label>
+                                <input type="text" class="form-control text-center" name="unidade" [(ngModel)]="cpus.unidade" placeholder="Unidade"/>
+                            </div>
+                        </div>
                 </div><!-- /Final da linha -->
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="unidade">Unidade</label>
-                            <input type="text" class="form-control text-center" name="unidade" [(ngModel)]="cpus.unidade" placeholder="Unidade"/>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="cst_mo">Preço Mão de Obra</label>
+                            <label for="cst_mo">Mão de Obra</label>
                             <input type="text" class="form-control text-right" name="cst_mo" [ngModel]="cpus.cst_mo  | currency:'BRL' : true" placeholder="Custo da mão de obra" readonly/>
                         </div>
                     </div>
@@ -60,8 +95,14 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="cst_outros">Preço Outros</label>
+                            <label for="cst_outros">Outros</label>
                             <input type="text" class="form-control text-right" name="cst_outros" [ngModel]="cpus.cst_outros  | currency:'BRL' : true" placeholder="Outros custos" readonly/>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="cst_outros">Subtotal</label>
+                            <input type="text" class="form-control text-right" name="cst_subtotal" [ngModel]="cpus.cst_subtotal  | currency:'BRL' : true" placeholder="Outros custos" readonly/>
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -72,7 +113,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="cst_total">Preço Total</label>
+                            <label for="cst_total">Total</label>
                             <input type="text" class="form-control text-right" name="cst_total" [ngModel]="cpus.cst_total  | currency:'BRL' : true"  placeholder="Custo total do serviço" readonly/>
                         </div>
                     </div>

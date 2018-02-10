@@ -52,12 +52,14 @@ export class CpusService {
       data.unidade,
       data.tipos_id,
       data.tipo, 
-      data.cst_total
+      data.cst_total,
+      
     )
     
     data.itens.forEach(elemento => {
       let novo = new Cpu_item(elemento.insumos_id, elemento.descricao, elemento.unidade, 
-          elemento.tipos_id, elemento.tipo, elemento.cst_total, 0, elemento.quantidade, elemento.id)
+          elemento.tipos_id, elemento.tipo, elemento.cst_total, 0, elemento.quantidade, elemento.id,
+          elemento.cst_mo, elemento.cst_outros)
       cpu.adicionarItem(novo)
     });
 

@@ -3,7 +3,42 @@
 </div>
 <br>
 
-<div class="col-md-9">
+<div class="col-md-12">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h5 class="box-title">Parametros</h5>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <form #form="ngForm" novalidate2>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="id">BDI (%)</label>
+                            <input type="text" class="form-control text-center" name="taxa_bdi" placeholder="28" [(ngModel)]="listaCpus.taxa_bdi" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="descricao">Leis Sociais - Horista (%)</label>
+                            <input type="text" class="form-control text-center" name="taxa_ls_hora" placeholder="124" [(ngModel)]="listaCpus.taxa_ls_hora" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="descricao">Leis Sociais - Mensalista (%)</label>
+                            <input type="text" class="form-control text-center" name="taxa_ls_mes" placeholder="86" [(ngModel)]="listaCpus.taxa_ls_mes" />
+                        </div>
+                    </div>
+                </div><!-- /Final da linha -->
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
   <!-- Relação de Solicitações -->
   <div class="box box-primary">
       <div class="box-header with-border">
@@ -20,7 +55,7 @@
                   <th class="text-center">Tipo</th>
                   <th class="text-center">Preço</th>
               </tr>
-              <tr *ngFor="let item of listaCpus ; let i = index">
+              <tr *ngFor="let item of listaCpus.itens ; let i = index">
                   <td class="text-center">{{ item.id }}</td>
                   <td>
                       {{ item.descricao }}
@@ -34,10 +69,6 @@
           </table>
       </div><!-- /Relação de Solicitações -->
   </div>
-</div>
-
-<div class="col-md-3">
-  <app-filtros-insumos></app-filtros-insumos>
 </div>
 
 <app-modal-edit-cpus></app-modal-edit-cpus>
