@@ -1,5 +1,7 @@
 import { isArray, isNullOrUndefined } from "util";
 import { Console } from "@angular/core/src/console";
+import { EventEmitter } from "events";
+import { Output } from "@angular/core";
 
 export class orcamentoGeral {
     
@@ -175,5 +177,45 @@ export class OrcamentoBdi {
         this.valor = null
     }
     // #endregion
+
+}
+
+class OrcamentoElementos {
+    id : number
+    sequencia : number
+    nivel : number
+    itemizacao : string
+    descricao : string
+    cst_unit : number
+}
+
+export class OrcamentoItem extends OrcamentoElementos {
+
+    unidade : string
+    quantidade : number
+    tipo : number
+    cst_unit : number
+    cst_unit_mo : number
+    cst_unit_outros : number
+    bdi_id : number
+
+    /**
+     * Eventos utilizados para notificar mudanças
+     */
+    @Output() onQuantidadeChanged : EventEmitter
+    @Output() onSequenciaChanged : EventEmitter
+    @Output() onNivelChanged : EventEmitter
+
+    /**
+     * Construtor da classe
+     */
+
+}
+
+export class OrcamentoNivel extends OrcamentoElementos {
+
+    itens : OrcamentoElementos[]
+
+
 
 }

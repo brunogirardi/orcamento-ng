@@ -6,6 +6,8 @@ interface Insumos {
     tipo: string
     tipos_id: number
     cst_total: number
+    cst_mo : number
+    cst_outros : number
     
 }
 

@@ -24,6 +24,7 @@ import { OrcamentoService } from './services/orcamento.service';
 import { OrcamentoStoreComponent } from './orcamento/geral/orcamento-store/orcamento-store.component';
 import { OrcamentoBdiGeralComponent } from './orcamento/bdi/orcamento-bdi-geral/orcamento-bdi-geral.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { IncludeItemComponent } from './orcamento/modals/include-item/include-item.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     OrcamentoIndexComponent,
     OrcamentoStoreComponent,
     OrcamentoBdiGeralComponent,
+    IncludeItemComponent,
   ],
   imports: [
     BrowserModule,

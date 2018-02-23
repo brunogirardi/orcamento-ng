@@ -13,7 +13,7 @@ export class InsumosService {
   listaSelect2 : any[] = []
 
   constructor(private http: Http) { 
-    this.loadLista().subscribe(res => {   
+    this.getListaCompleta().subscribe(res => {   
       this.updateLista(res)
     });
   }
@@ -27,7 +27,9 @@ export class InsumosService {
         unidade : item.unidade,
         tipo : item.tipo,
         tipos_id : item.tipos_id,
-        cst_total : item.cst_total
+        cst_total : item.cst_total,
+        cst_mo : item.cst_mo,
+        cst_outros : item.cst_outros
       }
       // Add to the listaInsumos if the item is differente of CPU
       if (novo_item.tipos_id != 6) {
@@ -40,9 +42,16 @@ export class InsumosService {
     })
   }
 
-  loadLista() : Observable<Insumos[]> {
+  getListaInsumos() : Observable<Insumos[]> {
     return this.http.get(`${http_url}/insumos`)
       .map(response => response.json().data)
+  }
+  
+  getListaCompleta() : Observable<Insumos[]> {
+    let lista : Observable<Insumos[]>
+    lista = this.http.get(`${http_url}/insumos/completa`)
+            .map(response => response.json().data)
+    return lista
   }
 
   getLista() : Insumos[] {

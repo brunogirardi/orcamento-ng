@@ -38,13 +38,24 @@ export class CpusService {
     return this.http.patch(`${http_url}/cpus/${id}/full`, item)
       .map(response => this.createCpuInstance(response.json().data))
   }
+
+  duplicateCpu(id : number) {
+    // Endereço API: http://orcamento-api.dev/api/cpus/{id}/duplicate
+    return this.http.get(`${http_url}/cpus/${id}/duplicate`)
+      .map(response => this.createCpuInstance(response.json().data))
+  }
+
+  deleteCpu(id : number) : Observable<string> {
+    return this.http.delete(`${http_url}/cpus/${id}`)
+      .map(response => "")
+  }
   // #endregion
 
   // #region Helper functions
 
   createCpuInstance(data : any) {
 
-    // console.log(data)
+    console.log(data)
 
     let cpu = new Cpus(
       data.id,
@@ -53,7 +64,6 @@ export class CpusService {
       data.tipos_id,
       data.tipo, 
       data.cst_total,
-      
     )
     
     data.itens.forEach(elemento => {

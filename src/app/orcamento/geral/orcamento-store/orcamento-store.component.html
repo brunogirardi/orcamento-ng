@@ -112,21 +112,23 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                
-                <table class="table table-hover">
-                    <thead>
-                        <th>Item</th>
-                        <th>Descrição do serviço / fornecimento</th>
-                        <th>Unidade</th>
-                        <th>Quantidade</th>
-                        <th>P. Unitário</th>
-                        <th>P. Total</th>
-                        <th>Ações</th>
-                    </thead>
+                <table class="table table-hover table-bordered">
                     <tbody>
+                        <tr>
+                            <th class="text-center">Item</th>
+                            <th class="text-center" style="width: 50%">Descrição do serviço / fornecimento</th>
+                            <th class="text-center">Tipo</th>
+                            <th class="text-center">Unidade</th>
+                            <th class="text-center">Quantidade</th>
+                            <th class="text-center">P. Unitário</th>
+                            <th class="text-center">P. Total</th>
+                            <th>Ações</th>
+
+                        </tr>
                         <tr>
                             <td>01</td>
                             <td>TESTE DE NIVEL</td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -136,11 +138,15 @@
                         <tr>
                             <td>01.01</td>
                             <td>CIMENTO PORTLAND CP-II</td>
-                            <td>SC</td>
-                            <td>10</td>
-                            <td>22</td>
-                            <td>220</td>
-                            <td></td>
+                            <td class="text-center">MAT</td>
+                            <td class="text-center">SC</td>
+                            <td class="text-right"><input type="text" class="input-container-hidden text-right" value="10,00"/></td>
+                            <td class="text-right">22,00</td>
+                            <td class="text-right">220,00</td>
+                            <td class="text-center">
+                                <a class="btn btn-success btn-xs" role="button"><i class="fa fa-list"></i></a>
+                                <a class="btn btn-success btn-xs space-right" role="button"><i class="fa fa-truck"></i></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

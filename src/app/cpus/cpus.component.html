@@ -60,7 +60,8 @@
                   <td>
                       {{ item.descricao }}
                       <a class="text-primary pull-right space-right" [routerLink]="['/cpus-edit', item.id]" role="button"><i class="fa fa-pencil"></i></a>
-                      <a class="text-danger pull-right space-right" role="button"><i class="fa fa-trash"></i></a> 
+                      <a class="text-success pull-right space-right" (click)=duplicateCpu(i) role="button"><i class="fa fa-copy"></i></a>
+                      <a class="text-danger pull-right space-right" (click)="deletarCpu(i)" role="button"><i class="fa fa-trash"></i></a> 
                   </td>
                   <td class="text-center">{{ item.unidade }}</td>
                   <td class="text-center">{{ item.tipo }}</td>

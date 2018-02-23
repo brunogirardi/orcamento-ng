@@ -37,7 +37,7 @@ export class AddItemModalComponent implements OnInit {
 
   addNewItem(i : number) {
 
-    let newItem : Cpu_item = new Cpu_item(this.insumos[i].id, this.insumos[i].descricao, this.insumos[i].unidade,  this.insumos[i].tipos_id, this.insumos[i].tipo, this.insumos[i].cst_total, 3, 0, 0, 0, 0)
+    let newItem : Cpu_item = new Cpu_item(this.insumos[i].id, this.insumos[i].descricao, this.insumos[i].unidade,  this.insumos[i].tipos_id, this.insumos[i].tipo, this.insumos[i].cst_total, 3, 0, 0, this.insumos[i].cst_mo, this.insumos[i].cst_outros)
     this.onNewItem.emit(newItem);
 
   }
