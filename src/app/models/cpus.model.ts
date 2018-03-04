@@ -27,7 +27,7 @@ class Cpus {
         this.calcularTotal()
     }
 
-    private _taxa_ls_hora : number = 120
+    private _taxa_ls_hora : number = 86
     get taxa_ls_hora():number {
         return this._taxa_ls_hora
     }
@@ -193,7 +193,15 @@ class Cpu_item {
 // Class para listagem de cpus e com implementação para alterar as LS e BDI conforme parametrização do usuário
 class Cpu_lista {
 
-    itens : Cpus[] = []
+    
+    _itens : Cpus[] = []
+    set itens(val:Cpus[]) {
+        this._itens = val
+        this.calcularBonificacoes()
+    }
+    get itens() : Cpus[] {
+        return this._itens
+    }
 
     private _taxa_bdi : number = 0
     get taxa_bdi():number {
@@ -204,7 +212,7 @@ class Cpu_lista {
         this.calcularBonificacoes()
     }
 
-    private _taxa_ls_hora : number = 120
+    private _taxa_ls_hora : number = 86
     get taxa_ls_hora():number {
         return this._taxa_ls_hora
     }
@@ -213,7 +221,7 @@ class Cpu_lista {
         this.calcularBonificacoes()
     }
 
-    private _taxa_ls_mes : number = 80
+    private _taxa_ls_mes : number = 60
     get taxa_ls_mes():number {
         return this._taxa_ls_mes
     }

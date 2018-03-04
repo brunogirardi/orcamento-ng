@@ -1,7 +1,6 @@
 import { isArray, isNullOrUndefined } from "util";
 import { Console } from "@angular/core/src/console";
-import { EventEmitter } from "events";
-import { Output } from "@angular/core";
+import { Output, EventEmitter } from "@angular/core";
 
 export class orcamentoGeral {
     
@@ -47,8 +46,6 @@ export class orcamentoGeral {
      */
     public inicializeOrcamento(params:any) {
 
-        console.log(params)
-
         this.id = params.id
         this.descricao = params.descricao
         this.endereco = params.endereco
@@ -63,8 +60,6 @@ export class orcamentoGeral {
             params.bdi.map(bdi => listaBdi.push(new OrcamentoBdi(bdi)))
             this.bdi = listaBdi
         }
-
-        console.log(this)
 
     }
 
@@ -119,8 +114,6 @@ export class OrcamentoPost {
         this.data_base  = item.dataBase
         this.ls_hora = item.lsHora
         this.ls_mes = item.lsMes
-
-        console.log(this)
     }
 
     // #endregion
@@ -180,31 +173,55 @@ export class OrcamentoBdi {
 
 }
 
-class OrcamentoElementos {
+export class OrcamentoItem{
+
+    @Output() onQuantidadeChanged = new EventEmitter
+    @Output() onSequenciaChanged = new EventEmitter
+    @Output() onNivelChanged = new EventEmitter
+
     id : number
+    agrupador: boolean
     sequencia : number
     nivel : number
     itemizacao : string
     descricao : string
-    cst_unit : number
-}
-
-export class OrcamentoItem extends OrcamentoElementos {
-
     unidade : string
-    quantidade : number
     tipo : number
-    cst_unit : number
     cst_unit_mo : number
     cst_unit_outros : number
+    bdi_taxa : number
     bdi_id : number
+    edicao_mode : boolean
+    
+    _quantidade : number
+    get quantidade():number {
+        return this._quantidade
+    }
+    set quantidade(val:number) {
+        this._quantidade = Number(val)
+        this.calcularCstTotal()
+        this.onQuantidadeChanged.emit();
+    }
+    
+    _cst_unit : number
+    get cst_unit():number {
+        return this._cst_unit
+    }
+    set cst_unit(val:number) {
+        this._cst_unit = Number(val)
+        this.calcularCstTotal()
+    }
 
-    /**
-     * Eventos utilizados para notificar mudanças
-     */
-    @Output() onQuantidadeChanged : EventEmitter
-    @Output() onSequenciaChanged : EventEmitter
-    @Output() onNivelChanged : EventEmitter
+    _cst_total : number
+    get cst_total() : number {
+        return this._cst_total
+    }
+    set cst_total(val:number) {
+        this._cst_total = val
+    }
+    calcularCstTotal() {
+        this._cst_total = Number((this._cst_unit * this._quantidade).toFixed(2))
+    }
 
     /**
      * Construtor da classe
@@ -212,10 +229,59 @@ export class OrcamentoItem extends OrcamentoElementos {
 
 }
 
-export class OrcamentoNivel extends OrcamentoElementos {
+export interface OrcamentoItemPost {
+    
+}
 
-    itens : OrcamentoElementos[]
+export class OrcamentoItemLista {
+    
+    _lista : OrcamentoItem[] = []
 
+    constructor(lista : OrcamentoItem[]) {
+        this._lista = lista
+        this.observarItens()
+        this.calcularSubtotalInicial()
+    }
 
+    get lista() : OrcamentoItem[] {
+        return this._lista
+    }
+    set lista(val:OrcamentoItem[]) {
+        this._lista = val
+        this.observarItens()
+    }
+
+    observarItens() {
+        this._lista.forEach(item => {
+            item.onQuantidadeChanged.subscribe(evento => {
+                this.calcularSubtotalInicial()
+            })
+        })
+    }
+
+    calcularSubtotalInicial() {
+        let indexGrupo : OrcamentoItem = null
+        let subtotal : number = 0
+        this._lista.forEach((item, index) => {
+            if (item.nivel == 1) {
+                if (indexGrupo != null) {
+                    indexGrupo.cst_total = subtotal
+                } 
+                indexGrupo = item;
+                subtotal = 0
+            } else {
+                subtotal += item.cst_total
+            }
+            indexGrupo.cst_total = subtotal
+        })
+    }
+
+    removerItemEmEdicaoMode() {
+        this._lista.forEach((item, index) => {
+            if (item.edicao_mode == true) {
+                this._lista.splice(index, 1)
+            }
+        })
+    }
 
 }

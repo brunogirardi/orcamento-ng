@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TiposService } from '../../services/tipos.service';
 import { Tipos } from '../../models/tipos.model';
-import {SelectModule} from 'ng2-select';
 import { InsumosService } from '../../services/insumos.service';
 
 

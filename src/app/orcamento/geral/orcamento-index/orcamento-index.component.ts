@@ -9,18 +9,18 @@ import { orcamentoGeral } from '../../../models/orcamento.model';
 })
 export class OrcamentoIndexComponent implements OnInit {
 
-  lista : orcamentoGeral[] = []
+  lista : any[] = []
 
   constructor(private orcamentoService : OrcamentoService) { }
 
   ngOnInit() {
     this.orcamentoService.getLista().subscribe(orcamento => {
       orcamento.map(data => {
+        // console.log(data)
         this.lista.push(new orcamentoGeral(data))
       })
     })
 
-    console.log(this.lista)
   }
 
 }

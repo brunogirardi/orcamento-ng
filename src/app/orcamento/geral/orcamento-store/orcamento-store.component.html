@@ -106,7 +106,7 @@
             <div class="box-header with-border table-condensed">
                 <h3 class="box-title"><i class="fa fa-list"></i> Orçamento</h3>
                 <div class="box-tools pull-right">
-                    <a class="btn btn-success btn-xs space-right" role="button" (click)="novoOrcamento(orcamento)"><i class="fa fa-floppy-o"></i> Adicionar</a>
+                    <a class="btn btn-success btn-xs space-right" role="button" (click)="adicionarNovoItem()"><i class="fa fa-plus"></i> Adicionar</a>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
@@ -125,28 +125,43 @@
                             <th>Ações</th>
 
                         </tr>
-                        <tr>
-                            <td>01</td>
-                            <td>TESTE DE NIVEL</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>01.01</td>
-                            <td>CIMENTO PORTLAND CP-II</td>
-                            <td class="text-center">MAT</td>
-                            <td class="text-center">SC</td>
-                            <td class="text-right"><input type="text" class="input-container-hidden text-right" value="10,00"/></td>
-                            <td class="text-right">22,00</td>
-                            <td class="text-right">220,00</td>
-                            <td class="text-center">
-                                <a class="btn btn-success btn-xs" role="button"><i class="fa fa-list"></i></a>
-                                <a class="btn btn-success btn-xs space-right" role="button"><i class="fa fa-truck"></i></a>
-                            </td>
+                        <tr *ngFor="let item of items.lista ; let i = index">
+                            <ng-container *ngIf="item.agrupador == 0">
+                                <td>{{item.itemizacao}}</td>
+                                <td>{{item.descricao}}</td>
+                                <td class="text-center">{{item.tipo}}</td>
+                                <td class="text-center">{{item.unidade}}</td>
+                                <td class="text-right">
+                                    <input class="input-container-hidden text-right" [(ngModel)]="item.quantidade"/>
+                                </td>
+                                <td class="text-right">{{item.cst_unit | currency:'BRL' : true }}</td>
+                                <td class="text-right">{{item.cst_total | currency:'BRL' : true }}</td>
+                                <td>
+                                    <a class="btn btn-success btn-xs" role="button"><i class="fa fa-list"></i></a>
+                                    <a class="btn btn-success btn-xs space-right" role="button"><i class="fa fa-truck"></i></a>
+                                </td>
+                            </ng-container>
+                            <ng-container *ngIf="item.agrupador == 1">
+                                <td><strong>{{item.itemizacao}}</strong></td>
+                                <td><strong>{{item.descricao}}</strong></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="text-right"><strong>{{item.cst_total | currency:'BRL' : true }}</strong></td>
+                                <td>
+                                    <a class="btn btn-success btn-xs" role="button"><i class="fa fa-list"></i></a>
+                                </td>
+                            </ng-container>
+                            <ng-container *ngIf="item.edicao_mode == 1">
+                                <td colspan="8">
+                                    <app-item-incluir 
+                                        [ItemNovo]="item" 
+                                        (onConfirmed)="confirmarNovoItem($event)"
+                                        (onCanceled)="cancelarNovoItem($event)">
+                                    </app-item-incluir>
+                                </td>
+                            </ng-container>
                         </tr>
                     </tbody>
                 </table>

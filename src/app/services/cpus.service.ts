@@ -55,8 +55,6 @@ export class CpusService {
 
   createCpuInstance(data : any) {
 
-    console.log(data)
-
     let cpu = new Cpus(
       data.id,
       data.descricao,

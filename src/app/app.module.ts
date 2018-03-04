@@ -18,13 +18,16 @@ import { ModalEditCpusComponent } from './cpus/modal-edit-cpus/modal-edit-cpus.c
 import { ModalEditInsumosComponent } from './insumos/modal-edit-insumos/modal-edit-insumos.component';
 import { CpusPageEditComponent } from './cpus/cpus-page-edit/cpus-page-edit.component';
 import { AddItemModalComponent } from './utilities/add-item-modal/add-item-modal.component';
-import { SelectModule } from 'ng2-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { OrcamentoIndexComponent } from './orcamento/geral/orcamento-index/orcamento-index.component';
 import { OrcamentoService } from './services/orcamento.service';
 import { OrcamentoStoreComponent } from './orcamento/geral/orcamento-store/orcamento-store.component';
 import { OrcamentoBdiGeralComponent } from './orcamento/bdi/orcamento-bdi-geral/orcamento-bdi-geral.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { IncludeItemComponent } from './orcamento/modals/include-item/include-item.component';
+import { OrcamentoItensService } from './services/orcamento-itens.service';
+import { ItemIncluirComponent } from './orcamento/geral/orcamento-store/item-incluir/item-incluir.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -43,12 +46,14 @@ import { IncludeItemComponent } from './orcamento/modals/include-item/include-it
     OrcamentoStoreComponent,
     OrcamentoBdiGeralComponent,
     IncludeItemComponent,
+    ItemIncluirComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    SelectModule,
+    NgSelectModule,
+    TextMaskModule,
     NgxPaginationModule,
     RouterModule.forRoot(ROUTES) 
   ],
@@ -56,7 +61,8 @@ import { IncludeItemComponent } from './orcamento/modals/include-item/include-it
     InsumosService,
     TiposService,
     CpusService,
-    OrcamentoService
+    OrcamentoService,
+    OrcamentoItensService
   ],
   bootstrap: [AppComponent]
 })

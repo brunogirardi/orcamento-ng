@@ -10,7 +10,7 @@ export class InsumosService {
 
   listaInsumos : Insumos[] = []
   listaInsumosComCpus : Insumos[] = []
-  listaSelect2 : any[] = []
+  listaSelect2 : Insumos[] = []
 
   constructor(private http: Http) { 
     this.getListaCompleta().subscribe(res => {   
@@ -38,7 +38,7 @@ export class InsumosService {
       // Creates the listaInsumosComCpus with all the objects
       this.listaInsumosComCpus.push(novo_item)
 
-      this.listaSelect2.push({ id: item.id, text: item.descricao })
+      this.listaSelect2.push(novo_item)
     })
   }
 
