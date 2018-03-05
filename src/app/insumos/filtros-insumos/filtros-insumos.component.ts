@@ -38,7 +38,7 @@ export class FiltrosInsumosComponent implements OnInit {
   ]
 
   constructor(private insumosService : InsumosService) { 
-    this.insumos = this.insumosService.listaSelect2
+    
   }
 
   ngOnInit() {

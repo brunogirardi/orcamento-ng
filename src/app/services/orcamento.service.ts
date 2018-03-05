@@ -1,38 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { http_url } from '../app.api';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import { OrcamentoPost } from '../models/orcamento.model';
+import { OrcamentoPost, orcamentoGeral } from '../models/orcamento.model';
 
 @Injectable()
 export class OrcamentoService {
 
   listaOrcamentos : any[]
   
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   // #region Serviços do Orçamento
 
-  getLista() : any {
-    return this.http.get(`${http_url}/orcamento`)
-      .map(response => response.json().data)
+  getLista() : Observable<orcamentoGeral[]> {
+    return this.http.get<orcamentoGeral[]>(`${http_url}/orcamento`)
   }
 
-  getOrcamento(id : number) {
-    return this.http.get(`${http_url}/orcamento/${id}`)
-      .map(response => response.json().data)
+  getOrcamento(id : number) : Observable<orcamentoGeral> {
+    return this.http.get<orcamentoGeral>(`${http_url}/orcamento/${id}`)
   }
 
-  insertOrcamento(item : OrcamentoPost) : any {
-    return this.http.post(`${http_url}/orcamento`, item)
-      .map(response => response.json().data)
+  insertOrcamento(item : OrcamentoPost) : Observable<orcamentoGeral> {
+    return this.http.post<orcamentoGeral>(`${http_url}/orcamento`, item)
   }
 
-  updateOrcamento(id : number, item : OrcamentoPost) {
-    return this.http.patch(`${http_url}/orcamento/${id}`, item)
-      .map(response => response.json().data)
+  updateOrcamento(id : number, item : OrcamentoPost) : Observable<orcamentoGeral> {
+    return this.http.patch<orcamentoGeral>(`${http_url}/orcamento/${id}`, item)
   }
 
   // #endregion

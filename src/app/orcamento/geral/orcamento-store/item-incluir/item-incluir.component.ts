@@ -36,7 +36,9 @@ export class ItemIncluirComponent implements OnInit {
     this.ItemNovo.cst_unit_mo = item.cst_mo
     this.ItemNovo.cst_unit_outros = item.cst_outros
     this.ItemNovo.cst_unit = item.cst_total
-    this.ItemNovo.tipo = item.tipos_id
+    this.ItemNovo.tipos_id = item.tipos_id
+    this.ItemNovo.insumos_id = item.id
+    this.ItemNovo.bdi = 1
   }
 
   confirmar() {

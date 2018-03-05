@@ -11,9 +11,9 @@ export class orcamentoGeral {
     endereco : string
     cliente : string
     contrato : string
-    dataBase : Date
-    lsHora : number
-    lsMes : number
+    data_base : Date
+    ls_hora : number
+    ls_mes : number
     bdi : OrcamentoBdi[]
 
     // #endregion
@@ -51,9 +51,9 @@ export class orcamentoGeral {
         this.endereco = params.endereco
         this.cliente = params.cliente
         this.contrato = params.contrato
-        this.dataBase = params.data_base
-        this.lsHora = params.ls_hora
-        this.lsMes = params.ls_mes
+        this.data_base = params.data_base
+        this.ls_hora = params.ls_hora
+        this.ls_mes = params.ls_mes
 
         if (!isNullOrUndefined(params.bdi)) {
             let listaBdi = []
@@ -74,20 +74,14 @@ export class orcamentoGeral {
         this.endereco = ""
         this.cliente = ""
         this.contrato = ""
-        this.dataBase = new Date()
-        this.lsHora = null
-        this.lsMes = null
+        this.data_base = new Date()
+        this.ls_hora = null
+        this.ls_mes = null
     }
     // #endregion
 
 }
 
-/**
- * Class utilizada para envio em POST
- * 
- * @export
- * @class OrcamentoPost
- */
 export class OrcamentoPost {
 
     // #region Propriedades
@@ -111,9 +105,9 @@ export class OrcamentoPost {
         this.endereco = item.endereco
         this.cliente = item.cliente
         this.contrato = item.contrato
-        this.data_base  = item.dataBase
-        this.ls_hora = item.lsHora
-        this.ls_mes = item.lsMes
+        this.data_base  = item.data_base
+        this.ls_hora = item.ls_hora
+        this.ls_mes = item.ls_mes
     }
 
     // #endregion
@@ -173,7 +167,41 @@ export class OrcamentoBdi {
 
 }
 
-export class OrcamentoItem{
+export interface IOrcamentoItem {
+    
+    id : number
+    agrupador: boolean
+    sequencia : number
+    nivel : number
+    itemizacao : string
+    insumos_id : number
+    descricao : string
+    unidade : string
+    tipos_id : number
+    cst_unit_mo : number
+    cst_unit_outros : number
+    cst_unit : number
+    quantidade : number
+    bdi : number
+    bdi_id : number
+
+}
+
+export interface IOrcamentoItemPost {
+    
+    sequencia : number
+    nivel : number
+    itemizacao : string
+    insumos_id : number
+    quantidade : number
+    bdi_id : number 
+
+}
+
+export class OrcamentoItem {
+
+    constructor() {
+    }
 
     @Output() onQuantidadeChanged = new EventEmitter
     @Output() onSequenciaChanged = new EventEmitter
@@ -184,16 +212,17 @@ export class OrcamentoItem{
     sequencia : number
     nivel : number
     itemizacao : string
+    insumos_id : number
     descricao : string
     unidade : string
-    tipo : number
+    tipos_id : number
     cst_unit_mo : number
     cst_unit_outros : number
-    bdi_taxa : number
+    bdi : number
     bdi_id : number
-    edicao_mode : boolean
+    edicao_mode : boolean = false
     
-    _quantidade : number
+    private _quantidade : number
     get quantidade():number {
         return this._quantidade
     }
@@ -203,7 +232,7 @@ export class OrcamentoItem{
         this.onQuantidadeChanged.emit();
     }
     
-    _cst_unit : number
+    private _cst_unit : number
     get cst_unit():number {
         return this._cst_unit
     }
@@ -212,7 +241,7 @@ export class OrcamentoItem{
         this.calcularCstTotal()
     }
 
-    _cst_total : number
+    private _cst_total : number
     get cst_total() : number {
         return this._cst_total
     }
@@ -229,37 +258,28 @@ export class OrcamentoItem{
 
 }
 
-export interface OrcamentoItemPost {
-    
-}
 
 export class OrcamentoItemLista {
     
-    _lista : OrcamentoItem[] = []
+    private _lista : OrcamentoItem[] = []
 
-    constructor(lista : OrcamentoItem[]) {
-        this._lista = lista
-        this.observarItens()
-        this.calcularSubtotalInicial()
+    constructor(lista : IOrcamentoItem[]) {
+        this.converterInterface(lista)
+        this.calcularSubtotal()
     }
 
     get lista() : OrcamentoItem[] {
         return this._lista
     }
-    set lista(val:OrcamentoItem[]) {
-        this._lista = val
-        this.observarItens()
-    }
 
-    observarItens() {
-        this._lista.forEach(item => {
-            item.onQuantidadeChanged.subscribe(evento => {
-                this.calcularSubtotalInicial()
-            })
+    adicionarItem(item : OrcamentoItem) {
+        item.onQuantidadeChanged.subscribe(evento => {
+            this.calcularSubtotal()
         })
+        this._lista.push(item)
     }
 
-    calcularSubtotalInicial() {
+    calcularSubtotal() {
         let indexGrupo : OrcamentoItem = null
         let subtotal : number = 0
         this._lista.forEach((item, index) => {
@@ -282,6 +302,35 @@ export class OrcamentoItemLista {
                 this._lista.splice(index, 1)
             }
         })
+    }
+
+    private converterInterface(data : IOrcamentoItem[]) {
+
+        data.forEach(item => {
+
+            let novoItem : OrcamentoItem = new OrcamentoItem()
+
+            novoItem.id = item.id
+            novoItem.agrupador = item.agrupador
+            novoItem.sequencia = item.sequencia
+            novoItem.nivel = item.nivel
+            novoItem.itemizacao = item.itemizacao
+            novoItem.insumos_id = item.insumos_id
+            novoItem.descricao = item.descricao
+            novoItem.unidade = item.unidade
+            novoItem.quantidade = item.quantidade
+            novoItem.tipos_id = item.tipos_id
+            novoItem.cst_unit = item.cst_unit
+            novoItem.cst_unit_mo = item.cst_unit_mo
+            novoItem.cst_unit_outros = item.cst_unit_outros
+            novoItem.bdi = item.bdi
+            novoItem.bdi_id = item.bdi_id
+
+            this.adicionarItem(novoItem)
+
+        })
+
+
     }
 
 }

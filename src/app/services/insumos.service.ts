@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Insumos, InsumosPost } from '../models/insumos.model';
 import { http_url } from '../app.api'
 import { Observable } from 'rxjs/Observable';
@@ -8,78 +8,31 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class InsumosService {
 
-  listaInsumos : Insumos[] = []
-  listaInsumosComCpus : Insumos[] = []
-  listaSelect2 : Insumos[] = []
-
-  constructor(private http: Http) { 
-    this.getListaCompleta().subscribe(res => {   
-      this.updateLista(res)
-    });
-  }
-
-  updateLista(itens) : void {
-    itens.map(item => {
-      // Create the object
-      let novo_item = {
-        id : item.id,
-        descricao : item.descricao,
-        unidade : item.unidade,
-        tipo : item.tipo,
-        tipos_id : item.tipos_id,
-        cst_total : item.cst_total,
-        cst_mo : item.cst_mo,
-        cst_outros : item.cst_outros
-      }
-      // Add to the listaInsumos if the item is differente of CPU
-      if (novo_item.tipos_id != 6) {
-        this.listaInsumos.push(novo_item)
-      }
-      // Creates the listaInsumosComCpus with all the objects
-      this.listaInsumosComCpus.push(novo_item)
-
-      this.listaSelect2.push(novo_item)
-    })
-  }
-
-  getListaInsumos() : Observable<Insumos[]> {
-    return this.http.get(`${http_url}/insumos`)
-      .map(response => response.json().data)
+  constructor(private http: HttpClient) { 
   }
   
   getListaCompleta() : Observable<Insumos[]> {
-    let lista : Observable<Insumos[]>
-    lista = this.http.get(`${http_url}/insumos/completa`)
-            .map(response => response.json().data)
-    return lista
+    return this.http.get<Insumos[]>(`${http_url}/insumos/completa`)
   }
 
-  getLista() : Insumos[] {
-    return this.listaInsumos
-  }
-
-  getListaComCpus() : Insumos[] {
-    return this.listaInsumosComCpus
+  getLista() : Observable<Insumos[]> {
+    return this.http.get<Insumos[]>(`${http_url}/insumos`)
   }
 
   getInsumo(id : number) : Observable<Insumos> {
-    return this.http.get(`${http_url}/insumos/${id}`)
-      .map(response => response.json().data)
+    return this.http.get<Insumos>(`${http_url}/insumos/${id}`)
   }
 
   inserirInsumo(insumo : InsumosPost) : Observable<Insumos> {
-    return this.http.post(`${http_url}/insumos/`, insumo)
-      .map(response => <Insumos>response.json().data)
+    return this.http.post<Insumos>(`${http_url}/insumos/`, insumo)
   }
   
   updateInsumo(id : number, insumo : InsumosPost) : Observable<Insumos> {
-    return this.http.patch(`${http_url}/insumos/${id}`, insumo)
-      .map(response => <Insumos>response.json().data)
+    return this.http.patch<Insumos>(`${http_url}/insumos/${id}`, insumo)
   }
 
   deleteInsumo(id : number) : Observable<string> {
-    return this.http.delete(`${http_url}/insumos/${id}`)
-      .map(response => <string>response.json().data)
+    return this.http.delete<string>(`${http_url}/insumos/${id}`)
   }
 
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { InsumosService } from '../services/insumos.service';
 import { Insumos, InsumosPost } from '../models/insumos.model';
 
@@ -21,7 +20,7 @@ export class InsumosComponent implements OnInit {
   constructor(private insumosService : InsumosService) { }
 
   ngOnInit() {
-    this.insumos = this.insumosService.getLista()
+    this.insumosService.getLista().subscribe(item => this.insumos = item)
   }
 
   createInsumo() {
@@ -49,7 +48,6 @@ export class InsumosComponent implements OnInit {
       tipos_id: this.insumos[index].tipos_id,
       cst_total: this.insumos[index].cst_total,
     }
-    console.log()
     this.modeCreate = false
     this.dialog = true
   }
@@ -67,10 +65,6 @@ export class InsumosComponent implements OnInit {
     this.insumos[this.updateItemIndex].cst_total = evento.cst_total
     this.dialog = false
     this.updateItemIndex = null
-  }
-
-  teste() {
-    console.log('teste')
   }
 
 }

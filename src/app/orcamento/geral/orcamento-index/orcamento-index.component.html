@@ -28,7 +28,7 @@
                   <td class="text-center">{{ item.id }}</td>
                   <td>
                       {{ item.descricao | uppercase }}
-                      <a class="text-primary pull-right space-right"  [routerLink]="['/orcamento/update/', item.id]" role="button"><i class="fa fa-pencil"></i></a>
+                      <a class="text-primary pull-right space-right"  routerLink="/orcamento/update/{{ item.id }}" role="button"><i class="fa fa-pencil"></i></a>
                       <a class="text-danger pull-right space-right" role="button"><i class="fa fa-trash"></i></a> 
                   </td>
                   <td class="text-right">R$ 1.100.254.452,21</td>

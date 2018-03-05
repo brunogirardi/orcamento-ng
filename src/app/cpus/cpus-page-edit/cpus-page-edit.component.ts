@@ -51,17 +51,17 @@ export class CpusPageEditComponent implements OnInit {
   }
 
   inserirCpu() {
-    this.cpuService.insertCpu(this.cpus.gerarPost()).subscribe(data => {
-      this.cpus = data
-      this.mostrarAlerta()
-    })
+    // this.cpuService.insertCpu(this.cpus.gerarPost()).subscribe(data => {
+    //   this.cpus = data
+    //   this.mostrarAlerta()
+    // })
   }
 
   atualizarCpu() {
-    this.cpuService.updateCpu(this.id, this.cpus.gerarPost()).subscribe(data => {
-      this.cpus = data
-      this.mostrarAlerta()
-    })
+    // this.cpuService.updateCpu(this.id, this.cpus.gerarPost()).subscribe(data => {
+    //   this.cpus = data
+    //   this.mostrarAlerta()
+    // })
   }
 
 }

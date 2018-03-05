@@ -73,28 +73,28 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="dataBase">Data Base</label>
-                            <input type="text" class="form-control text-center" name="dataBase" [(ngModel)]="orcamento.dataBase" placeholder="Data Base"/>
+                            <input type="text" class="form-control text-center" name="data_base" [(ngModel)]="orcamento.data_base" placeholder="Data Base"/>
                         </div>
                     </div><!-- Data Base -->
                     <!-- Leis Sociais Hora -->
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="lsHora">Leis Sociais Hora</label>
-                            <input type="text" class="form-control text-right" name="lsHora" [(ngModel)]="orcamento.lsHora" placeholder="Leis sociais hora"/>
+                            <input type="text" class="form-control text-right" name="ls_hora" [(ngModel)]="orcamento.ls_hora" placeholder="Leis sociais hora"/>
                         </div>
                     </div><!-- /Leis Sociais Hora -->
                     <!-- Leis Sociais Mês -->
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="lsMes">Leis Sociais Mês</label>
-                            <input type="text" class="form-control text-right" name="lsMes" [(ngModel)]="orcamento.lsMes"  placeholder="Leis sociais mês"/>
+                            <input type="text" class="form-control text-right" name="ls_mes" [(ngModel)]="orcamento.ls_mes"  placeholder="Leis sociais mês"/>
                         </div>
                     </div><!-- /Leis Sociais Mês -->
                     <!-- Total -->
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="total">Total</label>
-                            <input type="text" class="form-control text-right" name="total" [(ngModel)]="orcamento.total"  placeholder="Total" readonly/>
+                            <input type="text" class="form-control text-right" name="total"  placeholder="Total" readonly/>
                         </div>
                     </div><!-- /Total -->
                 </div>
@@ -129,7 +129,7 @@
                             <ng-container *ngIf="item.agrupador == 0">
                                 <td>{{item.itemizacao}}</td>
                                 <td>{{item.descricao}}</td>
-                                <td class="text-center">{{item.tipo}}</td>
+                                <td class="text-center">{{item.tipos_id}}</td>
                                 <td class="text-center">{{item.unidade}}</td>
                                 <td class="text-right">
                                     <input class="input-container-hidden text-right" [(ngModel)]="item.quantidade"/>

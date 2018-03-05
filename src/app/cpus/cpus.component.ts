@@ -14,7 +14,7 @@ export class CpusComponent implements OnInit {
   listaCpus : Cpu_lista = new Cpu_lista()
 
   ngOnInit() {
-    this.cpuService.getLista().subscribe(cpu => this.listaCpus.itens = cpu)
+    this.cpuService.getLista().subscribe(item => this.listaCpus.itens = item)
   }
   
   deletarCpu(index : number) {
@@ -23,11 +23,11 @@ export class CpusComponent implements OnInit {
   }
 
   duplicateCpu(index: number) {
-    let cpu : Cpus
-    this.cpuService.duplicateCpu(this.listaCpus.itens[index].id).subscribe(data => {
-       cpu = data 
-       this.rotas.navigate(['/cpus-edit', cpu.id])
-    })
+    // let cpu : Cpus
+    // this.cpuService.duplicateCpu(this.listaCpus.itens[index].id).subscribe(data => {
+    //cpu = data 
+    //this.rotas.navigate(['/cpus-edit', cpu.id])
+    // })
   }
 
 }

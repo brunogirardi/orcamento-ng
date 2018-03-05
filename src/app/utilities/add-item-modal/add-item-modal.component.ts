@@ -4,6 +4,7 @@ import { Tipos } from '../../models/tipos.model';
 import { InsumosService } from '../../services/insumos.service';
 import { Insumos } from '../../models/insumos.model';
 import { Cpu_item } from '../../models/cpus.model';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-add-item-modal',
@@ -27,8 +28,10 @@ export class AddItemModalComponent implements OnInit {
 
   ngOnInit() {
     this.tipos = this.tiposService.getLista()
-    this.insumos = this.insumosService.getListaComCpus()
-    this.insumosFiltro = this.insumos
+    this.insumosService.getListaCompleta().subscribe(item => { 
+      this.insumos = item
+      this.insumosFiltro = item
+    })
   }
 
   CloseEvent() {

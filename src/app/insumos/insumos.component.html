@@ -3,7 +3,7 @@
 </div>
 <br>
 
-<div class="col-md-9">
+<div class="col-md-12">
     <!-- Relação de Solicitações -->
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -34,10 +34,6 @@
             </table>
         </div><!-- /Relação de Solicitações -->
     </div>
-</div>
-
-<div class="col-md-3">
-    <app-filtros-insumos></app-filtros-insumos>
 </div>
 
 <app-modal-edit-insumos [mostrarDialog]="dialog" [novoInsumo]="updateInsumo" [modeCreate]="modeCreate" (onCancel)="cancelDialog()" (onNewItem)="insertInsumo($event)" (onUpdatedItem)="updatedInsumo($event)"></app-modal-edit-insumos>

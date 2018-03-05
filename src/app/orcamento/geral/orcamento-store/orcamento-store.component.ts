@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { orcamentoGeral, OrcamentoPost, OrcamentoItem, OrcamentoItemLista } from '../../../models/orcamento.model';
+import { Component, OnInit, AfterContentInit  } from '@angular/core';
+import { orcamentoGeral, OrcamentoPost, OrcamentoItem, OrcamentoItemLista, IOrcamentoItemPost } from '../../../models/orcamento.model';
 import { OrcamentoService } from '../../../services/orcamento.service';
 import { ActivatedRoute } from '@angular/router';
 import { isNullOrUndefined } from 'util';
@@ -16,17 +16,22 @@ export class OrcamentoStoreComponent implements OnInit {
 
   id : any
 
-  constructor(private orcamentoService : OrcamentoService, private route : ActivatedRoute, private itemsService : OrcamentoItensService) {
-    
+  constructor(
+    private orcamentoService : OrcamentoService, 
+    private route : ActivatedRoute, 
+    private itemsService : OrcamentoItensService,
+    private orcamentoItemService : OrcamentoItensService) {
+
   }
+
 
   ngOnInit() {
 
-    /** Verifica se é um procedimento de UPDATE */
+    /** Verifica se é um procedimento de UPDATE */  
     if (!isNullOrUndefined(this.route.snapshot.paramMap.get('id'))) {
       this.id = this.route.snapshot.paramMap.get('id');
       this.orcamentoService.getOrcamento(this.id).subscribe(dados => { 
-        this.orcamento = new orcamentoGeral(dados)
+        this.orcamento = dados
       })
       this.itemsService.getLista(this.id).subscribe(dados => {
         this.items = new OrcamentoItemLista(dados)
@@ -49,13 +54,27 @@ export class OrcamentoStoreComponent implements OnInit {
   adicionarNovoItem() {
     let item : OrcamentoItem = new OrcamentoItem()
     item.edicao_mode = true
-    this.items.lista.push(item)
+    this.items.adicionarItem(item)
   }
 
   confirmarNovoItem(item : OrcamentoItem) {
+    
+    // Adicionar item ao Banco de dados
+    let ItemPost : IOrcamentoItemPost = {
+      sequencia : item.sequencia,
+      bdi_id : item.bdi_id,
+      quantidade : item.quantidade,
+      insumos_id : item.insumos_id,
+      itemizacao : item.itemizacao,
+      nivel : item.nivel
+    }
+    
+    this.orcamentoItemService.inserirItem(this.id, ItemPost).subscribe(dado => item.id = dado.id)
+
     item.edicao_mode = false
     item.agrupador = false
-    this.items.calcularSubtotalInicial()
+    this.items.calcularSubtotal()
+
   }
 
   cancelarNovoItem(item: OrcamentoItem) {

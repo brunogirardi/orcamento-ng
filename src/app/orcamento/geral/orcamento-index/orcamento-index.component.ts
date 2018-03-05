@@ -16,7 +16,6 @@ export class OrcamentoIndexComponent implements OnInit {
   ngOnInit() {
     this.orcamentoService.getLista().subscribe(orcamento => {
       orcamento.map(data => {
-        // console.log(data)
         this.lista.push(new orcamentoGeral(data))
       })
     })
