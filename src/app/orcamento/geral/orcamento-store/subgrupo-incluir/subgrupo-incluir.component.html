@@ -1,0 +1,60 @@
+<div class="dialog-background" *ngIf="visivel == true">
+  <div class="box box-primary color-palette-box dialog">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        <i class="fa fa-search"></i> Descrição do Subgrupo</h3>
+    </div>
+
+    <div class="box-body">
+
+      <!-- <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="descricao">Nível</label>
+            <ng-select [items]="niveis" placeholder="Selecione o Nível" bindLabel="descricao" (change)="onChangeNivel($event)">
+            </ng-select>
+          </div>
+        </div>
+      </div> -->
+      <!-- /Campo com a Descrição -->
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="nivel">Nível</label>
+            <input type="text" name="nivel" [(ngModel)]="nivel" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="sequencia">Sequencia</label>
+            <input type="text" name="sequencia" [(ngModel)]="sequencia" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <input type="text" name="descricao" [(ngModel)]="descricao" class="form-control">
+          </div>
+        </div>
+      </div>
+      <!-- /Campo com a Descrição -->
+    </div>
+    <!-- /Box Body -->
+
+    <div class="box-footer">
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-danger" (click)="cancelar()">Fechar</button>
+          <button class="btn btn-primary pull-right" (click)="salvar()">Adicionar</button>
+        </div>
+      </div>
+    </div>
+    <!-- /Rodapé -->
+
+    <!-- /.tab-content -->
+  </div>
+</div>

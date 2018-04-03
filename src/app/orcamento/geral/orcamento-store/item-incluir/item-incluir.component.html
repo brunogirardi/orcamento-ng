@@ -1,25 +1,75 @@
-<div class="row">
-  <div class="col-lg-10 col-md-10 col-sm-9">
-    <div class="form-group">
-      <label for="detalhes">Descrição</label>
-      <!-- <input type="text" class="form-control" id="detalhes" placeholder="Descrição sumária"> -->
-      <ng-select 
-        [items]="this.insumos | async" 
-        placeholder="Selecione um serviço / insumo" 
-        bindLabel="descricao"
-        (change)="onChange($event)"></ng-select>
+<div class="dialog-background" *ngIf="visivel == true">
+  <div class="box box-primary color-palette-box dialog">
+    <div class="box-header with-border">
+      <h3 class="box-title">
+        <i class="fa fa-search"></i> Inclusão de Itens</h3>
+    </div>
+
+    <div class="box-body">
+
+
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="descricao">Descrição do Serviço / Insumo</label>
+              <ng-select [items]="this.insumos | async" placeholder="Selecione um serviço / insumo" bindLabel="descricao" (change)="onChangeInsumo($event)">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <!-- /Campo Seleção de Nível -->
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="descricao">Nível</label>
+              <ng-select [items]="niveis" placeholder="Selecione o Nível" bindLabel="descricao" (change)="onChangeNivel($event)">
+              </ng-select>
+            </div>
+          </div>
+        </div>
+        <!-- /Campo com a Descrição -->
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="sequencia">Unidade</label>
+              <input type="text" name="unidade" [(ngModel)]="item.unidade" class="form-control text-center">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="nivel">Quantidade</label>
+              <input type="text" name="quantidade" [(ngModel)]="item.quantidade" class="form-control text-right">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="sequencia">Valor Unitário</label>
+              <input type="text" name="cst_unit" [(ngModel)]="item.cst_unit" class="form-control text-right">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="sequencia">Valor Total</label>
+              <input type="text" name="cst_total" [(ngModel)]="item.cst_unit * item.quantidade" class="form-control text-right">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Box Body -->
+
+      <div class="box-footer">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-danger" (click)="cancelar()">Fechar</button>
+            <button class="btn btn-primary pull-right" (click)="confirmar()">Adicionar</button>
+          </div>
+        </div>
+      </div>
+      <!-- /Rodapé -->
+
+      <!-- /.tab-content -->
     </div>
   </div>
-  <div class="col-lg-2 col-md-2 col-sm-3">
-    <div class="form-group">
-      <label for="detalhes">Quantidade</label>
-      <input type="text" class="text-right" class="form-control" placeholder="Quantidade" [(ngModel)]="ItemNovo.quantidade">
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <a class="btn btn-danger space-right pull-right" role="button" (click)="cancelar()"><i class="fa fa-plus"></i> Cancelar</a>
-    <a class="btn btn-success space-right pull-right" role="button" (click)="confirmar()"><i class="fa fa-plus"></i> Adicionar</a>
-  </div>
-</div> 

@@ -28,6 +28,7 @@ import { IncludeItemComponent } from './orcamento/modals/include-item/include-it
 import { OrcamentoItensService } from './services/orcamento-itens.service';
 import { ItemIncluirComponent } from './orcamento/geral/orcamento-store/item-incluir/item-incluir.component';
 import { TextMaskModule } from 'angular2-text-mask';
+import { SubgrupoIncluirComponent } from './orcamento/geral/orcamento-store/subgrupo-incluir/subgrupo-incluir.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     OrcamentoBdiGeralComponent,
     IncludeItemComponent,
     ItemIncluirComponent,
+    SubgrupoIncluirComponent,
   ],
   imports: [
     BrowserModule,

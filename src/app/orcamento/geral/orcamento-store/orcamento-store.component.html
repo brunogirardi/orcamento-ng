@@ -106,27 +106,30 @@
             <div class="box-header with-border table-condensed">
                 <h3 class="box-title"><i class="fa fa-list"></i> Orçamento</h3>
                 <div class="box-tools pull-right">
-                    <a class="btn btn-success btn-xs space-right" role="button" (click)="adicionarNovoItem()"><i class="fa fa-plus"></i> Adicionar</a>
+                    <a class="btn btn-success btn-xs space-right" role="button" (click)="adicionarNovoItem()"><i class="fa fa-plus"></i> Item</a>
+                    <a class="btn btn-success btn-xs space-right" role="button" (click)="adicionarNovoSubgrupo()"><i class="fa fa-plus"></i> Subgrupo</a>
+                    <a class="btn btn-success btn-xs space-right" role="button" ><i class="fas fa-arrows-alt"></i> Subgrupo</a>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table class="table table-hover table-bordered">
-                    <tbody>
+                <table class="table2">
+                    <thead>
                         <tr>
-                            <th class="text-center">Item</th>
-                            <th class="text-center" style="width: 50%">Descrição do serviço / fornecimento</th>
-                            <th class="text-center">Tipo</th>
-                            <th class="text-center">Unidade</th>
-                            <th class="text-center">Quantidade</th>
-                            <th class="text-center">P. Unitário</th>
-                            <th class="text-center">P. Total</th>
-                            <th>Ações</th>
-
+                            <th class="text-center">ITEM</th>
+                            <th class="text-center" style="width: 60%">DESCRIÇÃO DO SERVIÇO / FORNECIMENTO</th>
+                            <th class="text-center">TIPO</th>
+                            <th class="text-center">UNIDADE</th>
+                            <th class="text-center">QUANTIDADE</th>
+                            <th class="text-center">P. UNITÁRIO</th>
+                            <th class="text-center">P. TOTAL</th>
+                            <th>AÇÕES</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr *ngFor="let item of items.lista ; let i = index">
-                            <ng-container *ngIf="item.agrupador == 0">
+                            <ng-container *ngIf="item.agrupador == false && item.visivel == true">
                                 <td>{{item.itemizacao}}</td>
                                 <td>{{item.descricao}}</td>
                                 <td class="text-center">{{item.tipos_id}}</td>
@@ -137,13 +140,18 @@
                                 <td class="text-right">{{item.cst_unit | currency:'BRL' : true }}</td>
                                 <td class="text-right">{{item.cst_total | currency:'BRL' : true }}</td>
                                 <td>
-                                    <a class="btn btn-success btn-xs" role="button"><i class="fa fa-list"></i></a>
-                                    <a class="btn btn-success btn-xs space-right" role="button"><i class="fa fa-truck"></i></a>
+                                    <a class="btn btn-success btn-xs" role="button" (click)="novoNivel(item.sequencia)"><i class="fa fa-list"></i></a>
+                                    <a class="btn btn-success btn-xs" role="button" (click)="novoItem(item.sequencia)"><i class="fa fa-truck"></i></a>
+                                    <a class="btn btn-danger btn-xs space-right" role="button" (click)="removerItem(item)"><i class="fa fa-trash"></i></a>
                                 </td>
                             </ng-container>
-                            <ng-container *ngIf="item.agrupador == 1">
+                            <ng-container *ngIf="item.agrupador == true && item.visivel == true">
                                 <td><strong>{{item.itemizacao}}</strong></td>
-                                <td><strong>{{item.descricao}}</strong></td>
+                                <td>
+                                    <i *ngIf="item.expandido == true" class="fas fa-angle-down" (click)="recolherGrupo(item)"></i> 
+                                    <i *ngIf="item.expandido == false" class="fas fa-angle-right" (click)="expandirGrupo(item)"></i> 
+                                    <strong>{{item.descricao}}</strong>
+                                </td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -151,15 +159,6 @@
                                 <td class="text-right"><strong>{{item.cst_total | currency:'BRL' : true }}</strong></td>
                                 <td>
                                     <a class="btn btn-success btn-xs" role="button"><i class="fa fa-list"></i></a>
-                                </td>
-                            </ng-container>
-                            <ng-container *ngIf="item.edicao_mode == 1">
-                                <td colspan="8">
-                                    <app-item-incluir 
-                                        [ItemNovo]="item" 
-                                        (onConfirmed)="confirmarNovoItem($event)"
-                                        (onCanceled)="cancelarNovoItem($event)">
-                                    </app-item-incluir>
                                 </td>
                             </ng-container>
                         </tr>
@@ -170,3 +169,22 @@
         </div>
 
 </div><!-- /Dados básicos da CPU -->
+
+
+<!-- Dialogs de gerenciamento dos itens -->
+<app-subgrupo-incluir 
+    [visivel]="nivel_store_visibility" 
+    [orcamento]="orcamento.id" 
+    [sequencia]="sequencia"
+    (novoItem)="onNovoNivel($event)"
+    (onCanceled)="onFecharSubitemIncluir()">
+</app-subgrupo-incluir>
+
+<app-item-incluir 
+    [visivel]="item_store_visibility" 
+    [orcamento]="orcamento.id" 
+    [sequencia]="sequencia"
+    [niveis]="niveis"
+    (onConfirmed)="onNovoItem($event)"
+    (onCanceled)="onFecharItemIncluir()">
+</app-item-incluir>
